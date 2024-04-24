@@ -36,34 +36,29 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" method="post" action="register.php">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
+                                        <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name" name="first_name">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
+                                        <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name" name="last_name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
+                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address" name="email">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
-                                </a>
+                                </button>
                                 <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Register with Google
@@ -72,12 +67,13 @@
                                     <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                                 </a>
                             </form>
+
                             <hr>
                             <div class="text-center">
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="login.php">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
@@ -86,6 +82,28 @@
         </div>
 
     </div>
+
+    <?php
+    // Kết nối với cơ sở dữ liệu
+    require('db/conn.php');
+
+    // Lấy dữ liệu từ form
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email =  $_POST['email'];
+    $password =  $_POST['password'];
+
+    // Tiến hành thêm dữ liệu vào cơ sở dữ liệu
+    $sql1 = "INSERT INTO register (FirstName, LastName, Email, Password) VALUES ('$first_name', '$last_name', '$email', '$password')";
+    mysqli_query($conn, $sql1);
+
+   
+
+    $conn->close();
+?>
+
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
