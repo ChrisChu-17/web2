@@ -1,7 +1,17 @@
 <?php
 require('include/header.php');
 ?>
-
+<?php include '../classes/category.php';  ?>
+<?php include '../classes/product.php';  ?>
+<?php include '../classes/brand.php';  ?>
+<?php
+// gọi class category
+$product = new Product();
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+    // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
+    $insertProduct = $product->insert_product($_POST, $_FILES); // hàm check catName khi submit lên
+}
+?>
 <div>
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -17,7 +27,12 @@ require('include/header.php');
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Add Product!</h1>
                                 </div>
-                                <form class="user" action="addProductProgress.php" method="post" enctype="multipart/form-data">
+                                <?php
+                                if (isset($insertProduct)) {
+                                    echo $insertProduct;
+                                }
+                                ?>
+                                <form class="user" action="addProduct.php" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label class="form-label">Product name:</label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter Product Name..." required>
@@ -53,14 +68,14 @@ require('include/header.php');
                                         <select class="form-control" name="category" required>
                                             <option value="">Choose the Category</option>
                                             <?php
-                                            //ket noi database fetch data từ database ra bảng html
-                                            require('db/conn.php');
-                                            $sql = "select * from categories order by name";
-                                            $result = mysqli_query($conn, $sql);
-                                            while ($row = mysqli_fetch_assoc($result)) {
+                                            $category = new Category();
+                                            $catList = $category->showCategory();
+                                            if ($catList) {
+                                                while ($result = $catList->fetch_assoc()) {
                                             ?>
-                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                                                    <option value="<?php echo $result['id'] ?>"><?php echo $result['name'] ?></option>
                                             <?php
+                                                }
                                             }
                                             ?>
                                         </select>
@@ -70,26 +85,19 @@ require('include/header.php');
                                         <select class="form-control" name="brand" required>
                                             <option value="">Choose the Brand</option>
                                             <?php
-                                            //ket noi database fetch data từ database ra bảng html
-                                            require('db/conn.php');
-                                            $sql = "select * from brands order by name";
-                                            $result = mysqli_query($conn, $sql);
-                                            while ($row = mysqli_fetch_assoc($result)) {
+                                            $brand = new Brand();
+                                            $brandList = $brand->showBrand();
+                                            if ($brandList) {
+                                                while ($result = $brandList->fetch_assoc()) {
                                             ?>
-                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                                                    <option value="<?php echo $result['id']?>"><?php echo $result['name']?></option>
                                             <?php
+                                                }
                                             }
                                             ?>
                                         </select>
                                     </div>
-                                    <!-- <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
-                                        </div>
-                                    </div> -->
-                                    <button class="btn btn-primary btn-user btn-block" type="submit" class="form-control">
+                                    <button class="btn btn-primary btn-user btn-block" type="submit" name="submit" class="form-control">
                                         Save
                                     </button>
                                     <hr>

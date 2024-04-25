@@ -1,5 +1,5 @@
 <?php
-require('/xampp/htdocs/websitebanhang/admin/db/conn.php');
+require('../db/conn.php');
 //lấy dữ liệu từ form
 $name = $_POST['name'];
 $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));

@@ -1,7 +1,16 @@
 <?php
 require('include/header.php');
 ?>
-
+<?php include '../classes/category.php';  ?>
+<?php
+// gọi class category
+$category = new Category();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
+    $catName = $_POST['name'];
+    $insertCat = $category->insertCategory($catName); // hàm check catName khi submit lên
+}
+?>
 <div>
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -17,7 +26,12 @@ require('include/header.php');
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Add Category!</h1>
                                 </div>
-                                <form class="user" action="addCatsProgress.php" method="post">
+                                <?php
+                                if (isset($insertCat)) {
+                                    echo $insertCat;
+                                }
+                                ?>
+                                <form class="user" action="addCats.php" method="post">
                                     <div class="form-group">
                                         <label class="form-label">Category name:</label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category Name...">

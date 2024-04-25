@@ -1,3 +1,15 @@
+<?php
+    include_once ('../lib/database.php');
+	include_once ('helpers/format.php');
+	spl_autoload_register(function($className){include_once "classes/".$className.".php";});
+
+    $product = new product();
+    $db = new database();
+	$fm = new format();
+    $cat =new category();
+?>
+
+
 <?php require_once('bootstrap.php'); ?>
 <header class="header-v2">
     <!-- Header desktop -->
