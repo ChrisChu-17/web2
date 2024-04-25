@@ -3,7 +3,7 @@ require('include/header.php');
 ?>
 <?php include '../classes/brand.php';  ?>
 <?php
-// gọi class brand
+
 $brand = new Brand();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
