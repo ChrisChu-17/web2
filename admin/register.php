@@ -1,3 +1,24 @@
+
+
+<?php include '../classes/loginUser.php';  ?>
+
+
+<?php
+$user = new LoginUser();
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+    // LẤY DỮ LIeu TỪ PHƯƠNG THỨC Ở FORM POST
+    $insertUser = $user->insertUser($_POST,$_FILES); // hàm check catName khi submit lên
+}
+?>
+  <?php 
+   if(isset($insertUser))
+    {
+    echo $insertUser;
+    }
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,25 +57,28 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
+                           
+
+
+                          
+
+
+
                             <form class="user" method="post" action="register.php">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name" name="first_name">
+                                        <input type="text" class="form-control form-control-user" id="Name" placeholder=" User account" name="name">
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name" name="last_name">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
                                     </div>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address" name="email">
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
-                                    </div>
+                                <div class="form-group">
+                                    <input type="phone" class="form-control form-control-user" id="exampleInputPhone" placeholder="Phone number" name="phone">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
@@ -82,25 +106,6 @@
         </div>
 
     </div>
-
-    <?php
-    // Kết nối với cơ sở dữ liệu
-    require('db/conn.php');
-
-    // Lấy dữ liệu từ form
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $email =  $_POST['email'];
-    $password =  $_POST['password'];
-
-    // Tiến hành thêm dữ liệu vào cơ sở dữ liệu
-    $sql1 = "INSERT INTO register (FirstName, LastName, Email, Password) VALUES ('$first_name', '$last_name', '$email', '$password')";
-    mysqli_query($conn, $sql1);
-
-   
-
-    $conn->close();
-?>
 
 
 
