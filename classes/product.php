@@ -61,6 +61,8 @@ class Product
         }
         $imgs = substr($imgs, 0, -1);
 
+
+
         if (empty($name) || empty($summary) || empty($description) || empty($stock) || empty($price) || empty($sale_price) || empty($category) || empty($brand)) {
             $alert = "<span class='error'>Không được để trống</span>";
             return $alert;
@@ -210,6 +212,22 @@ class Product
 
         $result = $this->db->select($sql);
         return $result;
+    }
+
+    function imgProcess($arrstr, $width)
+    {
+        //arrstr la mang chua cac hinh anh vd anh1, anh2, anh3...
+        $arr = explode(";", $arrstr);
+        return "<img src= '$arr[0]' width = '$width'/>";
+    }
+
+    function imgProcessForUser($arrstr, $width, $height, $class)
+    {
+        // Split the input string into an array of image names
+        $arr = explode(";", $arrstr);
+
+        // Append the HTML for each image to the output string
+        return "<img src='admin/$arr[0]' width='$width' height='$height' class='$class' />";
     }
 }
 ?>

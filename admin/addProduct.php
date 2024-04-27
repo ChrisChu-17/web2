@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Images:</label>
-                                        <input type="file" class="form-control" id="anhs" name="anhs[]" multiple= "multiple" required>
+                                        <input type="file" class="form-control" id="anhs" name="anhs[]" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Summary:</label>
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                             if ($brandList) {
                                                 while ($result = $brandList->fetch_assoc()) {
                                             ?>
-                                                    <option value="<?php echo $result['id']?>"><?php echo $result['name']?></option>
+                                                    <option value="<?php echo $result['id'] ?>"><?php echo $result['name'] ?></option>
                                             <?php
                                                 }
                                             }
