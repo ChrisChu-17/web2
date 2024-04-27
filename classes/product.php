@@ -87,6 +87,7 @@ class Product
         products.id as id,
         products.name as pname, 
         products.images as pimg,
+        products.price as price,
         brands.name as bname,
         categories.name as cname,
         products.status as pstatus FROM `products` 
@@ -176,6 +177,39 @@ class Product
         } else {
             echo "<script>alert('Xóa khong thành công.');</script>";
         }
+    }
+
+    public function getProductDetails($id)
+    {
+        $sql =
+            "SELECT products.*, categories.name as cname
+
+
+			 FROM products INNER JOIN categories ON products.category_id = categories.id
+								
+			 WHERE products.id = '$id'
+			 ";
+
+        $result = $this->db->select($sql);
+        return $result;
+    }
+
+    public function getProductBreadcrumb($id)
+    {
+        $sql =
+            "SELECT products.name as pname, products.category_id as pcats,
+            
+            products.id as pid, categories.name as cname,
+
+            categories.id as cid
+
+			 FROM products INNER JOIN categories ON products.id = categories.id
+								
+			 WHERE products.id = '$id'
+			 ";
+
+        $result = $this->db->select($sql);
+        return $result;
     }
 }
 ?>

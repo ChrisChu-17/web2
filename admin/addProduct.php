@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Images:</label>
-                                        <input type="file" class="form-control" id="anhs" name="anhs[]" multiple" required>
+                                        <input type="file" class="form-control" id="anhs" name="anhs[]" multiple= "multiple" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Summary:</label>
