@@ -1,5 +1,7 @@
+
 <?php
 $filepath = realpath(dirname(__FILE__));
+include_once($filepath . '/../lib/session.php');
 include_once($filepath . '/../lib/database.php');
 include_once($filepath . '/../helpers/format.php');
 include_once($filepath . '/../lib/session.php');
@@ -17,65 +19,60 @@ class LoginUser
         $this->db = new Database();
         $this->fm = new Format();
     }
-
-    public function insertUser($data, $file)
+    public function insertUser($data)
     {
-      
-        $name = mysqli_real_escape_string($this->db->link, $data['name']);
+
+        $name = mysqli_real_escape_string($this->db->link, $data['fullName']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
-        $password = mysqli_real_escape_string($this->db->link, $data['password']);
+        $password = mysqli_real_escape_string($this->db->link, md5($data['password']));
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
+        $confirmPassword = mysqli_real_escape_string($this->db->link, md5($data['confirmPassword']));
 
-       
-
-        $query = "INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`) VALUES (NULL, '$name', '$email', '$password', '$phone') ";
-
-        $result = $this->db->insert($query);
-        if ($result) {
-            $alert = "Thêm thành công";
-            header("Location:login.php");
+        if (empty($name) || empty($email) || empty($password) || empty($phone) || empty($confirmPassword)) {
+            $alert = "<span class='error'>Không được để trống</span>";
+            return $alert;
+        } elseif ($password != $confirmPassword) {
+            $alert = "<span class='error'>Mật khẩu không khớp</span>";
             return $alert;
         } else {
-            $alert = "Thêm sản phẩm không thành công";
-            return $alert;
+
+            $query = "INSERT INTO `users` (`name`, `email`, `password`, `phone`)
+             VALUES ('$name', '$email', '$password', '$phone')";
+
+
+            $result = $this->db->insert($query);
+            if ($result) {
+                $alert = "Thêm thành công";
+                return $alert;
+            } else {
+                $alert = "Thêm sản phẩm không thành công";
+                return $alert;
+            }
         }
     }
 
-
-    public function login_User($data){
+    public function loginUser($data)
+    {
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
-        $password = mysqli_real_escape_string($this->db->link, $data['password']);
-        var_dump($data);
+        $password = mysqli_real_escape_string($this->db->link, md5($data['password']));
 
-    
-    if (empty($email) || empty($password)) {
-        $alert = "<span class='error'>Không được để trống</span>";
-        return $alert;
-    } else {
-        $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-       
-        
-        $result = $this->db->select($query);
-        var_dump($result);
-            
-        if($result != false){
-            $value = $result->fetch_assoc();
-            Session::set('custopmerlogin',true);
-            Session::set('id',$value['id']);
-            Session::set('name',$value['name']);
-            header("Location:../index.php");
-        }else{
-            $alert = "<span class='error'>nhap khong dung</span>";
-        return $alert;
+        if (empty($email) || empty($password)) {
+            $alert = "<span class='error'>Không được để trống</span>";
+            return $alert;
+        } else {
+
+            $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+            $result = $this->db->select($query);
+            if ($result != false) {
+                $value = $result->fetch_assoc();
+                Session::set('userLogin', true);
+                Session::set('userId', $value['id']);
+                Session::set('userName', $value['name']);
+            } else {
+                $alert = "<span class='error'>Tài khoản hoặc mật khẩu không đúng</span>";
+                return $alert;
+            }
         }
-
-
-
-
-
-
-    }
     }
 }
-                                                                           
 ?>

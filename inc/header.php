@@ -1,4 +1,7 @@
-
+<?php 
+include 'lib/session.php';
+Session::init();
+?>
 <?php require_once('bootstrap.php'); ?>
 
 
@@ -65,13 +68,31 @@
                         <?php require_once('cart.php'); ?>
                     </div>
 
-                    <div class="flex-c-m h-full p-lr-19">
+                    <div class="flex-c-m h-full p-lr-19 bor5">
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
                             <i class="zmdi zmdi-menu"></i>
 
                         </div>
                         <?php require_once('sidebar.php'); ?>
                     </div>
+                    <?php
+                    $login_check = Session::get('userLogin');
+                    if ($login_check == false) {
+                        echo '<a href="login.php">Đăng nhập</a></div>';
+                    } else {
+                        echo '<a href="logout.php">Đăng xuất</a></div>';
+                    }
+                    ?>
+                    <?php
+                    if (!isset($_GET['id']) || $_GET['id'] == NULL) {
+                        // echo "<script> window.location = 'catlist.php' </script>";
+                    } else {
+                        $id = $_GET['id'];
+                        Session::destroy();
+                        header("Location: login.php");
+                        exit();
+                    }
+                    ?>
                 </div>
             </nav>
         </div>
@@ -160,5 +181,28 @@
             </form>
         </div>
     </div>
-</header>
 
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Select "Logout" below if you are ready to end your current session.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<?php require_once('script.php'); ?>

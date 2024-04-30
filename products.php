@@ -260,7 +260,7 @@ require('inc/header.php');
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <div class="grid_1_of_4 images_1_of_4">
                                 <div class="block2-pic hov-img0">
-                                    <a href="details.php?proid=<?php echo $result['id'] ?>"><img src="admin/<?php echo $result['pimg'] ?>" width="200" height="200" class="img-fluid" alt="IMG-PRODUCT"></a>
+                                    <a href="details.php?proid=<?php echo $result['id'] ?>"><?php echo $product->imgProcessForUser($result['pimg'], 200, 200, 'img-fluid')?></a>
                                     <a href="details.php?proid=<?php echo $result['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
                                         Quick View
                                     </a>

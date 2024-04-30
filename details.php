@@ -16,6 +16,7 @@ if (!isset($_GET['proid'])) {
 <?php
 if ($showProduct) {
     while ($result = $showProduct->fetch_assoc()) {
+        $img_arr = explode(';', $result['images'])
 ?>
         <div class="container">
             <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -47,35 +48,17 @@ if ($showProduct) {
                                 <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
                                 <div class="slick3 gallery-lb">
-                                    <div class="item-slick3" data-thumb="images/product-detail-01.jpg">
-                                        <div class="wrap-pic-w pos-relative">
-                                            <img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+                                    <?php for ($i = 0; $i < count($img_arr); $i++) { ?>
+                                        <div class="item-slick3" data-thumb="admin/<?php echo $img_arr[$i] ?>">
+                                            <div class=" wrap-pic-w pos-relative">
+                                                <img src="admin/<?php echo $img_arr[$i] ?>" alt="<?php echo $result['name'] ?>">
 
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
-                                                <i class="fa fa-expand"></i>
-                                            </a>
+                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
+                                                    <i class="fa fa-expand"></i>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
-                                        <div class="wrap-pic-w pos-relative">
-                                            <img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
-                                                <i class="fa fa-expand"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-                                        <div class="wrap-pic-w pos-relative">
-                                            <img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
-                                                <i class="fa fa-expand"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -84,15 +67,15 @@ if ($showProduct) {
                     <div class="col-md-6 col-lg-5 p-b-30">
                         <div class="p-r-50 p-t-5 p-lr-0-lg">
                             <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                                Lightweight Jacket
+                                <?php echo $result['name'] ?>
                             </h4>
 
                             <span class="mtext-106 cl2">
-                                $58.79
+                                $<?php echo $result['price'] ?>
                             </span>
 
                             <p class="stext-102 cl3 p-t-23">
-                                Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
+                                <?php echo $result['summary'] ?>
                             </p>
 
                             <!--  -->
@@ -116,24 +99,6 @@ if ($showProduct) {
                                     </div>
                                 </div>
 
-                                <div class="flex-w flex-r-m p-b-10">
-                                    <div class="size-203 flex-c-m respon6">
-                                        Color
-                                    </div>
-
-                                    <div class="size-204 respon6-next">
-                                        <div class="rs1-select2 bor8 bg0">
-                                            <select class="js-select2" name="time">
-                                                <option>Choose an option</option>
-                                                <option>Red</option>
-                                                <option>Blue</option>
-                                                <option>White</option>
-                                                <option>Grey</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-204 flex-w flex-m respon6-next">
@@ -204,7 +169,7 @@ if ($showProduct) {
                             <div class="tab-pane fade show active" id="description" role="tabpanel">
                                 <div class="how-pos2 p-lr-15-md">
                                     <p class="stext-102 cl6">
-                                        Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+                                        <?php echo $result['description']?>
                                     </p>
                                 </div>
                             </div>
@@ -361,7 +326,7 @@ if ($showProduct) {
                 </span>
 
                 <span class="stext-107 cl6 p-lr-25">
-                    Categories: Jacket, Men
+                    Categories: <?php echo $result['cname']?>
                 </span>
             </div>
         </section>

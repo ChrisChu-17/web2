@@ -1,12 +1,6 @@
 <?php
 require('include/header.php');
 
-function imgProcess($arrstr, $height)
-{
-  //arrstr la mang chua cac hinh anh vd anh1, anh2, anh3...
-  $arr = explode(";", $arrstr);
-  return "<img src='$arr[0]' height = '$height'/>";
-}
 ?>
 <?php include '../classes/category.php';  ?>
 <?php include '../classes/product.php';  ?>
@@ -61,7 +55,7 @@ if (!isset($_GET['delete']) || $_GET['delete'] == NULL) {
             ?>
                 <tr>
                   <td><?php echo $result['pname']; ?></td>
-                  <td><img src="<?php echo $result['pimg'] ?>" width="100"></td>
+                  <td><?php echo $product->imgProcess($result['pimg'], 100)?></td>
                   <td><?php echo $result['bname']; ?></td>
                   <td><?php echo $result['cname']; ?></td>
                   <td><?php echo $result['pstatus']; ?></td>
