@@ -2,20 +2,26 @@
 
 <?php include '../classes/loginUser.php';  ?>
 
-
 <?php
-$user = new LoginUser();
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-    // LẤY DỮ LIeu TỪ PHƯƠNG THỨC Ở FORM POST
-    $insertUser = $user->insertUser($_POST,$_FILES); // hàm check catName khi submit lên
-}
+    $user = new LoginUser();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+    $insertUser = $user->insertUser($_POST,$_FILES); 
+    }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+    $loginUser = $user->login_User($_POST,$_FILES); 
+    }
 ?>
+
+
+
+
   <?php 
    if(isset($insertUser))
     {
     echo $insertUser;
     }
-?>
+    ?>
+
 
 
 
@@ -80,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <input type="phone" class="form-control form-control-user" id="exampleInputPhone" placeholder="Phone number" name="phone">
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-user btn-block" name="submit">
                                     Register Account
                                 </button>
                                 <hr>
