@@ -169,7 +169,7 @@ if ($showProduct) {
                             <div class="tab-pane fade show active" id="description" role="tabpanel">
                                 <div class="how-pos2 p-lr-15-md">
                                     <p class="stext-102 cl6">
-                                        Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+                                        <?php echo $result['description']?>
                                     </p>
                                 </div>
                             </div>
@@ -326,7 +326,7 @@ if ($showProduct) {
                 </span>
 
                 <span class="stext-107 cl6 p-lr-25">
-                    Categories: Jacket, Men
+                    Categories: <?php echo $result['cname']?>
                 </span>
             </div>
         </section>

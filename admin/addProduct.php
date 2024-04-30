@@ -63,6 +63,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                             <input type="text" class="form-control" id="sale_price" name="sale_price" placeholder="Enter Sale price..." required>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4 mb-sm-0">
+                                            <label class="form-label">Color:</label>
+                                            <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity..." required>
+                                        </div>
+                                        <div class="col-sm-4 mb-sm-0">
+                                            <label class="form-label">Size:</label>
+                                            <input type="text" class="form-control" id="price" name="price" placeholder="Enter Standard Price..." required>
+                                        </div>
+                                        <div class="col-sm-4 mb-sm-0">
+                                            <label class="form-label">Sale price:</label>
+                                            <input type="text" class="form-control" id="sale_price" name="sale_price" placeholder="Enter Sale price..." required>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="form-label">Category:</label>
                                         <select class="form-control" name="category" required>
