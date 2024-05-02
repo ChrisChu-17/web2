@@ -1,18 +1,18 @@
 
-<?php include '../classes/loginUser.php';  ?>
+<?php include '../classes/loginAdmin.php';  ?>
 <?php
-    $user = new LoginUser();
+    $admin = new LoginAdmin();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
         var_dump($_POST);
-        $login_User = $user->login_User($_POST,$_FILES); 
-        var_dump($login_User);
+        $login_Admin = $admin->login_admin($_POST,$_FILES); 
+        var_dump($login_Admin);
     }
 ?>
 
 <?php 
-    if(isset($login_User)){
-        echo $login_User;
+    if(isset($login_Admin)){
+        echo $login_Admin;
     }
 
 
@@ -88,8 +88,8 @@
                                         <?php
 // Bên dưới form đăng nhập
 if(isset($_POST['submit'])) {
-    $loginUser = new LoginUser();
-    $loginUser->login_User($_POST);
+    $login_Admin = new LoginAdmin();
+    $login_Admin->login_admin($_POST);
 }
 ?>
 

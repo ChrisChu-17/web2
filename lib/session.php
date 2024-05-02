@@ -39,7 +39,7 @@ class Session{
 //check phiên làm việc có tồn tại hay không
  public static function checkLogin(){
     self::init();
-    if (self::get("adminlogin")== true) {
+    if (self::get("loginAdmin")== true) {
      header("Location:index.php");
     }
  }

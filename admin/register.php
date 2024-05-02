@@ -1,15 +1,13 @@
 
 
-<?php include '../classes/loginUser.php';  ?>
+<?php include '../classes/loginAdmin.php';  ?>
 
 <?php
-    $user = new LoginUser();
+    $admin = new LoginAdmin();
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-    $insertUser = $user->insertUser($_POST,$_FILES); 
+    $insertUser = $admin->insertUser($_POST,$_FILES); 
     }
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
-    $loginUser = $user->login_User($_POST,$_FILES); 
-    }
+   
 ?>
 
 

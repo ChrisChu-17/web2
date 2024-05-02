@@ -1,3 +1,9 @@
+<?php
+include '../lib/session.php';
+
+include '../classes/loginAdmin.php'; 
+?>
+
 <nav
             class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
           >
@@ -8,7 +14,7 @@
             >
               <i class="fa fa-bars"></i>
             </button>
-
+           
             <!-- Topbar Search -->
             <form
               class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
@@ -28,6 +34,9 @@
                 </div>
               </div>
             </form>
+
+
+            
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -132,6 +141,7 @@
                   >
                 </div>
               </li>
+             
 
               <!-- Nav Item - Messages -->
               <li class="nav-item dropdown no-arrow mx-1">
@@ -151,8 +161,8 @@
                 <!-- Dropdown - Messages -->
                 <div
                   class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                  aria-labelledby="messagesDropdown"
-                >
+                  aria-labelledby="messagesDropdown">
+
                   <h6 class="dropdown-header">Message Center</h6>
                   <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="dropdown-list-image mr-3">
@@ -186,6 +196,9 @@
                         you like them sent to you?
                       </div>
                       <div class="small text-gray-500">Jae Chun · 1d</div>
+                    </div>
+                    <div>
+       
                     </div>
                   </a>
                   <a class="dropdown-item d-flex align-items-center" href="#">
@@ -232,32 +245,66 @@
                   >
                 </div>
               </li>
+ 
 
               <div class="topbar-divider d-none d-sm-block"></div>
+              
+              <!--  <div class="nav-item dropdown no-arrow">
+                  <li class="nav-item dropdown no-arrow mx-1">
+                
+                 
+                  <?php
+                    $login_admin = Session::get('loginAdmin');
+                    if ($login_admin == true) {
+                        echo '<a href="login.php">Đăng nhập</a></div>';
+                    } else {
+                        echo '<a href="logoutAdmin.php">Đăng xuất</a></div>';
+                    }
+                    ?>
+                    <?php
+                    if (!isset($_GET['id']) || $_GET['id'] == NULL) {
+                        // echo "<script> window.location = 'catlist.php' </script>";
+                    } else {
+                        $id = $_GET['id'];
+                        Session::destroy();
+                        header("Location: login.php");
+                        exit();
+                    }
+                    ?> 
+                  </li>
+
+
+                </div> -->
 
               <!-- Nav Item - User Information -->
-              <li class="nav-item dropdown no-arrow">
+              <li class="nav-item dropdown no-arrow ">
+
                 <a
                   class="nav-link dropdown-toggle"
-                  href="#"
+                  href="logoutAdmin.php"
                   id="userDropdown"
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    >Douglas McGee</span
+              
+                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                    >TL</span
                   >
+                  -->
+
                   <img
                     class="img-profile rounded-circle"
                     src="img/undraw_profile.svg"
                   />
-                </a>
+                    
+                </a> 
+               
                 <!-- Dropdown - User Information -->
                 <div
-                  class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                  aria-labelledby="userDropdown"
+                  class="dropdown-menu dropdown-menu- shadow animated--grow-in"
+                  aria-labelledby="userDropdown" 
                 >
                   <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -271,19 +318,21 @@
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                     Activity Log
                   </a>
+                  
+                  
                   <div class="dropdown-divider"></div>
+                  
                   <a
                     class="dropdown-item"
-                    href="#"
-                    data-toggle="modal"
-                    data-target="#logoutModal"
-                  >
+                    href="login.php" >
                     <i
                       class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
                     ></i>
                     Logout
                   </a>
+                  
                 </div>
               </li>
             </ul>
+          
           </nav>
