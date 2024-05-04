@@ -1,222 +1,158 @@
-<?php 
-require_once('inc/header.php');
-?>
-
+<?php require('inc/header.php'); ?>
+<?php require('inc/script.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<title>Shoping Cart</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-<style>
-        /* Custom styles */
-        body {
-            background-color: #ffffff; /* Màu trắng ngà */
-          
-        }
-        .form-container {
-            max-width: 500px; /* Độ rộng vừa */
-            margin: auto;
-            background-color:  #d9f2e6; /* Màu trắng */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-        }
-    </style>
+	<meta name="description" content="Ogani Template">
+	<meta name="keywords" content="Ogani, unica, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Ogani | Template</title>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+	<!-- Css Styles -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Custom CSS for input border color -->
+	<style>
+		.checkout__input input:focus {
+			border-color: #007bff;
+			box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+		}
+	</style>
 </head>
 
-<!--<body class="animsition">
-	
-	
-	<!-- Header -->
-	<header class="header-v4">
-		<!-- Header desktop -->
-		<div class="container-menu-desktop">
-		
-			<div class="top-bar">
-				<div class="content-topbar flex-sb-m h-full container">
-					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
-
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							My Account
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
-						</a>
+<body>
+	<!-- Checkout Section Begin -->
+	<section class="checkout spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<h4>Billing Details</h4>
+					<form action="#">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="firstName">First Name<span>*</span></label>
+									<input type="text" class="form-control" id="firstName" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="lastName">Last Name<span>*</span></label>
+									<input type="text" class="form-control" id="lastName" required>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="country">Country<span>*</span></label>
+									<input type="text" class="form-control" id="country" required>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="address">Address<span>*</span></label>
+									<input type="text" class="form-control" id="address" placeholder="Street Address" required>
+									<input type="text" class="form-control mt-2" id="address2" placeholder="Apartment, suite, unit, etc. (optional)">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="city">Town/City<span>*</span></label>
+									<input type="text" class="form-control" id="city" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="state">Country/State<span>*</span></label>
+									<input type="text" class="form-control" id="state" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="postcode">Postcode / ZIP<span>*</span></label>
+									<input type="text" class="form-control" id="postcode" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="phone">Phone<span>*</span></label>
+									<input type="text" class="form-control" id="phone" required>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="email">Email<span>*</span></label>
+									<input type="email" class="form-control" id="email" required>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-4">
+					<div class="checkout__order">
+						<h4>Your Order</h4>
+						<div class="checkout__order__products d-flex justify-content-between">
+							<span class="text-muted">Products</span>
+							<span class="text-muted">Total</span>
+						</div>
+						<ul>
+							<li class="d-flex justify-content-between mt-2">
+								<span class="text-muted">Vegetable’s Package</span>
+								<span class="text-muted">$75.99</span>
+							</li>
+							<li class="d-flex justify-content-between mt-2">
+								<span class="text-muted">Fresh Vegetable</span>
+								<span class="text-muted">$151.99</span>
+							</li>
+							<li class="d-flex justify-content-between mt-2">
+								<span class="text-muted">Organic Bananas</span>
+								<span class="text-muted">$53.99</span>
+							</li>
+						</ul>
+						<hr>
+						<div class="checkout__order__subtotal d-flex justify-content-between">
+							<span class="text-muted">Subtotal</span>
+							<span class="text-muted">$750.99</span>
+						</div>
+						<div class="checkout__order__total d-flex justify-content-between mt-2">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Total:
+								</span>	
+							</div>
+							<div class="size-109 ">
+								<span class="mtext-110 cl2">
+									$750.99
+								</span>
+							</div>
+						</div>
+						<button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">PLACE ORDER</button>
 					</div>
 				</div>
-			</div>
 
-			
-		</div>
-
-		<!-- Header Mobile -->
-
-
-		<!-- Menu Mobile -->
-		<div class="menu-mobile">
-			<ul class="topbar-mobile">
-				<li>
-					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
-				</li>
-
-				<li>
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							My Account
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
-						</a>
-					</div>
-				</li>
-			</ul>
-
-			<ul class="main-menu-m">
-				<li>
-					<a href="index.html">Home</a>
-					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
-				</li>
-
-				<li>
-					<a href="product.html">Shop</a>
-				</li>
-
-				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
-				</li>
-
-				<li>
-					<a href="blog.html">Blog</a>
-				</li>
-
-				<li>
-					<a href="about.html">About</a>
-				</li>
-
-				<li>
-					<a href="contact.html">Contact</a>
-				</li>
-			</ul>
-		</div>
-
-		<!-- Modal Search -->
-		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-			<div class="container-search-header">
-				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="images/icons/icon-close2.png" alt="CLOSE">
-				</button>
-
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
-						<i class="zmdi zmdi-search"></i>
-					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
-				</form>
 			</div>
 		</div>
-	</header>
+	</section>
+	<!-- Checkout Section End -->
 
-	<!-- Cart -->
-	
-
-	<body>
-	<div class="container">
-	<div class="container">
-    <div class="form-container">
-        <h2 class="mb-4">Checkout Information</h2>
-        <form>
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter your name">
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone:</label>
-                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email">
-            </div>
-            <div class="form-group">
-                <label for="address">Address:</label>
-                <textarea class="form-control" id="address" rows="2" placeholder="Enter your address"></textarea>
-            </div>
-			<div class="form-group">
-                <label for="address">New Address:</label>
-                <textarea class="form-control" id="address" rows="2" placeholder="Enter your address"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="payment-method">Payment Method:</label>
-                <select class="form-control" id="payment-method">
-                    <option>Cash on delivery</option>
-                    <option>Credit card</option>
-                    <option>Debit card</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-</div>
-	
-<!-- Bootstrap JS (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Js Plugins -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
+
+<!-- Footer -->
+<?php require('inc/footer.php'); ?>
