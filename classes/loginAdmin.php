@@ -9,7 +9,7 @@ include_once($filepath . '/../lib/session.php');
 ?>
 
 <?php
-class LoginUser
+class LoginAdmin
 {
     private $db;
     private $fm;
@@ -22,28 +22,28 @@ class LoginUser
     public function insertUser($data)
     {
 
-        $name = mysqli_real_escape_string($this->db->link, $data['fullName']);
+        $name = mysqli_real_escape_string($this->db->link, $data['name']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $password = mysqli_real_escape_string($this->db->link, md5($data['password']));
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
-        $confirmPassword = mysqli_real_escape_string($this->db->link, md5($data['confirmPassword']));
+       
 
-        if (empty($name) || empty($email) || empty($password) || empty($phone) || empty($confirmPassword)) {
+        if (empty($name) || empty($email) || empty($password) || empty($phone) ) {
             $alert = "<span class='error'>Không được để trống</span>";
             return $alert;
-        } elseif ($password != $confirmPassword) {
-            $alert = "<span class='error'>Mật khẩu không khớp</span>";
-            return $alert;
+       
         } else {
 
-            $query = "INSERT INTO `users` (`name`, `email`, `password`, `phone`)
+            $query = "INSERT INTO `admins` (`name`, `email`, `password`, `phone`)
              VALUES ('$name', '$email', '$password', '$phone')";
 
 
             $result = $this->db->insert($query);
             if ($result) {
                 $alert = "Thêm thành công";
+                header("Location: login.php");                
                 return $alert;
+
             } else {
                 $alert = "Thêm sản phẩm không thành công";
                 return $alert;
@@ -51,7 +51,7 @@ class LoginUser
         }
     }
 
-    public function loginUser($data)
+    public function login_admin($data)
     {
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $password = mysqli_real_escape_string($this->db->link, md5($data['password']));
@@ -61,15 +61,16 @@ class LoginUser
             return $alert;
         } else {
 
-            $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+            $query = "SELECT * FROM admins WHERE email = '$email' AND password = '$password'";
             $result = $this->db->select($query);
             if ($result != false) {
                 $value = $result->fetch_assoc();
-                Session::set('userLogin', true);
-                Session::set('userId', $value['id']);
-                Session::set('userName', $value['name']);
+                Session::set('loginAdmin', true);
+                Session::set('id', $value['id']);
+                Session::set('name', $value['name']);
+                header("Location: index.php");       
             } else {
-                $alert = "<span class='error'>Tài khoản hoặc mật khẩu không đúng</span>";
+                $alert = "<span>Tài khoản hoặc mật khẩu không đúng</span>";
                 return $alert;
             }
         }

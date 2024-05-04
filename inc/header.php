@@ -3,6 +3,8 @@ include 'lib/session.php';
 Session::init();
 ?>
 <?php require_once('bootstrap.php'); ?>
+
+
 <header class="header-v2">
     <!-- Header desktop -->
     <div class="container-menu-desktop trans-03">
@@ -45,6 +47,8 @@ Session::init();
                         <li>
                             <a href="contact.html">Contact</a>
                         </li>
+                     
+                      
                     </ul>
                 </div>
 
