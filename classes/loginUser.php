@@ -74,5 +74,12 @@ class LoginUser
             }
         }
     }
+
+    public function getUserInfor($id) {
+        $userId = mysqli_real_escape_string($this->db->link, $id);
+        $query = "SELECT * FROM users WHERE id = '$id'";
+        $result = $this->db->select($query);
+        return $result;
+    }
 }
 ?>

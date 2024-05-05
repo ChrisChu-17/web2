@@ -20,28 +20,6 @@ if (isset($_GET['delete']) && ($_GET['delete'] >= 0)) {
     }
 }
 
-//xử lý cập nhập giá tiền nếu số lượng bị thay đổi trong cart
-// if (isset($_POST['updateQuantity']) && isset($_POST['productId']) && isset($_POST['newQuantity'])) {
-//     $productIdToUpdate = $_POST['productId'];
-//     $newQuantity = $_POST['newQuantity'];
-
-//     //tìm sp trong giỏ hàng và cập nhật
-//     foreach ($_SESSION['cart'] as &$product) {
-//         if ($product[4] == $productIdToUpdate) {
-//             $product[3] = $newQuantity;
-//             break;
-//         }
-//     }
-//     // Tính lại tổng giá tiền sau khi cập nhật số lượng
-//     $totalPrice = 0;
-//     foreach ($_SESSION['cart'] as $product) {
-//         $totalPrice += $product[2] * $product[3];
-//     }
-//     echo $totalPrice;
-
-//     exit();
-// }
-
 
 if (isset($_POST['addToCart']) && ($_POST['addToCart'])) {
     $productId = $_POST['id'];
@@ -67,61 +45,6 @@ if (isset($_POST['addToCart']) && ($_POST['addToCart'])) {
     }
 }
 $total = 0;
-function showCart()
-{
-    if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
-        if (sizeof($_SESSION['cart']) > 0) {
-            foreach ($_SESSION['cart'] as $product) {
-                // Chuyển đổi các giá trị thành số nguyên
-                $price = intval($product[2]);
-                $quantity = intval($product[3]);
-
-                // Tính tổng giá tiền của sản phẩm
-                $totalOnProduct = $price * $quantity;
-                global $total;
-                $total += $totalOnProduct;
-                echo '<tr class="table_row">
-                <td class="column-1">
-                    <div class="how-itemcart1">
-                        <img src="' . $product[0] . '" alt="IMG">
-                    </div>
-                </td>
-                <td class="column-2">' . $product[1] . '</td>
-                <td class="column-3">' . $price . '</td>
-                <td class="column-4">
-                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                            <i class="fs-16 zmdi zmdi-minus"></i>
-                        </div>
-                        <input class="mtext-104 cl3 txt-center num-product" type="number" name="quantity[' . $product[4] . ']"  value="' . $quantity . '">
-                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                            <i class="fs-16 zmdi zmdi-plus"></i>
-                        </div>
-                    </div>
-                </td>
-                <td class="column-5">' . $totalOnProduct . '</td>
-                <td class="column-6">
-                    <a href="cart.php?delete=' . $product[4] . '">Delete</a>
-                </td>
-            </tr>';
-            }
-
-            // Hiển thị tổng giá tiền của các sản phẩm trong giỏ hàng
-            echo '<div class="flex-w flex-t bor12 p-b-13">
-                    <div class="size-208">  
-                        <span class="stext-110 cl2">
-                            Subtotal:
-                        </span>
-                    </div>
-                    <div class="size-209">
-                        <span class="mtext-110 cl2">
-                            $' . $total . '
-                        </span>
-                    </div>
-                </div>';
-        }
-    }
-}
 
 // Xử lý cập nhập giỏ hàng
 if (isset($_POST['updateCart'])) {
@@ -146,6 +69,11 @@ if (isset($_POST['updateCart'])) {
 ?>
 <?php require('inc/header.php'); ?>
 <?php require('inc/script.php'); ?>
+<?php include 'classes/carts.php';  ?>
+<?php
+    $cart = new Cart();
+   
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -184,7 +112,7 @@ if (isset($_POST['updateCart'])) {
                                         <th class="column-6">Delete</th>
                                     </tr>
 
-                                    <?php showCart() ?>
+                                    <?php  $showCart = $cart->showCart();?>
 
                                 </table>
                             </div>

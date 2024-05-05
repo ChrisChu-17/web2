@@ -1,5 +1,11 @@
 <?php require('inc/header.php'); ?>
 <?php require('inc/script.php'); ?>
+<?php include 'classes/loginUser.php';  ?>
+<?php
+$user = new LoginUser();
+$userId = Session::get('userId');
+$userInfor = $user->getUserInfor($userId);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,61 +47,51 @@
 					<h4>Billing Details</h4>
 					<form action="#">
 						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="firstName">First Name<span>*</span></label>
-									<input type="text" class="form-control" id="firstName" required>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="lastName">Last Name<span>*</span></label>
-									<input type="text" class="form-control" id="lastName" required>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="country">Country<span>*</span></label>
-									<input type="text" class="form-control" id="country" required>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="address">Address<span>*</span></label>
-									<input type="text" class="form-control" id="address" placeholder="Street Address" required>
-									<input type="text" class="form-control mt-2" id="address2" placeholder="Apartment, suite, unit, etc. (optional)">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="city">Town/City<span>*</span></label>
-									<input type="text" class="form-control" id="city" required>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="state">Country/State<span>*</span></label>
-									<input type="text" class="form-control" id="state" required>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="postcode">Postcode / ZIP<span>*</span></label>
-									<input type="text" class="form-control" id="postcode" required>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="phone">Phone<span>*</span></label>
-									<input type="text" class="form-control" id="phone" required>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="email">Email<span>*</span></label>
-									<input type="email" class="form-control" id="email" required>
-								</div>
-							</div>
+							<?php
+							if ($userInfor) {
+								while ($result = $userInfor->fetch_assoc()) {
+							?>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="firstName">First Name<span>*</span></label>
+											<input type="text" class="form-control" id="firstName" value="<?= $result['name'] ?>" required>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="lastName">Phone<span>*</span></label>
+											<input type="text" class="form-control" id="lastName" value="<?= $result['phone'] ?>" required>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="email">Email<span>*</span></label>
+											<input type="email" class="form-control" id="email" value="<?= $result['email'] ?>" required>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="address">Address<span>*</span></label>
+											<input type="text" class="form-control" id="address" placeholder="Street Address" required>
+											<input type="text" class="form-control mt-2" id="address2" placeholder="Apartment, suite, unit, etc. (optional)">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="city">Town/City<span>*</span></label>
+											<input type="text" class="form-control" id="city" required>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="state">Country/State<span>*</span></label>
+											<input type="text" class="form-control" id="state" required>
+										</div>
+									</div>
+							<?php
+								}
+							}
+							?>
 						</div>
 					</form>
 				</div>
@@ -121,6 +117,17 @@
 							</li>
 						</ul>
 						<hr>
+						<div class="checkout__payment">
+							<h4>Payment Method</h4>
+							<div class="custom-control custom-radio">
+								<input type="radio" id="onlinePayment" name="paymentMethod" class="custom-control-input">
+								<label class="custom-control-label" for="onlinePayment">Online Payment</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input type="radio" id="cashOnDelivery" name="paymentMethod" class="custom-control-input">
+								<label class="custom-control-label" for="cashOnDelivery">Cash on Delivery</label>
+							</div>
+						</div>
 						<div class="checkout__order__subtotal d-flex justify-content-between">
 							<span class="text-muted">Subtotal</span>
 							<span class="text-muted">$750.99</span>
@@ -129,7 +136,7 @@
 							<div class="size-208">
 								<span class="mtext-101 cl2">
 									Total:
-								</span>	
+								</span>
 							</div>
 							<div class="size-109 ">
 								<span class="mtext-110 cl2">
