@@ -1,9 +1,8 @@
-<?php 
+<?php
 include 'lib/session.php';
 Session::init();
 ?>
-<?php require_once('bootstrap.php'); ?>
-
+<?php require_once('bootstrap.php');?>
 
 <header class="header-v2">
     <!-- Header desktop -->
@@ -47,8 +46,8 @@ Session::init();
                         <li>
                             <a href="contact.html">Contact</a>
                         </li>
-                     
-                      
+
+
                     </ul>
                 </div>
 
@@ -60,11 +59,22 @@ Session::init();
                         </div>
                     </div>
 
+                    <?php
+                    $cart = [];
+                    if (isset($_SESSION['cart'])) {
+                        $cart = $_SESSION['cart'];
+                    }
+
+                    $count = 0;
+                    foreach ($cart as $product) {
+                        $count += $product[3];
+                    }
+                    ?>
                     <div class="flex-c-m h-full p-l-18 p-r-25 bor5">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="<?php echo $count ?>">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
-                        <?php require_once('cart.php'); ?>
+                        <?php require_once('cartHeader.php'); ?>
                     </div>
 
                     <div class="flex-c-m h-full p-lr-19 bor5">
