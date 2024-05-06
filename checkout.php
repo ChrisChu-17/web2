@@ -1,10 +1,20 @@
 <?php require('inc/header.php'); ?>
 <?php require('inc/script.php'); ?>
 <?php include 'classes/loginUser.php';  ?>
+<?php include 'classes/carts.php';  ?>
 <?php
 $user = new LoginUser();
+$userCart = new Cart();
 $userId = Session::get('userId');
 $userInfor = $user->getUserInfor($userId);
+
+if (isset($_POST['placeOrder']) && ($_POST['placeOrder'])) {
+	$idUserCart = $userCart->createOrder($_POST, $userId);
+	foreach ($_SESSION['cart'] as $product) {
+		$userOrderDetail = $userCart->createOrderDetail($product, $_FILES, $idUserCart);
+	}
+	unset($_SESSION['cart']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,10 +52,10 @@ $userInfor = $user->getUserInfor($userId);
 	<!-- Checkout Section Begin -->
 	<section class="checkout spad">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-8">
-					<h4>Billing Details</h4>
-					<form action="#">
+			<form action="checkout.php" method="post">
+				<div class="row">
+					<div class="col-lg-8">
+						<h4>Billing Details</h4>
 						<div class="row">
 							<?php
 							if ($userInfor) {
@@ -54,38 +64,48 @@ $userInfor = $user->getUserInfor($userId);
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="firstName">First Name<span>*</span></label>
-											<input type="text" class="form-control" id="firstName" value="<?= $result['name'] ?>" required>
+											<input type="text" class="form-control" id="firstName" name="fullname" value="<?= $result['name'] ?>" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="lastName">Phone<span>*</span></label>
-											<input type="text" class="form-control" id="lastName" value="<?= $result['phone'] ?>" required>
+											<input type="text" class="form-control" id="phone" name="phone" value="<?= $result['phone'] ?>" required>
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="email">Email<span>*</span></label>
-											<input type="email" class="form-control" id="email" value="<?= $result['email'] ?>" required>
+											<input type="email" class="form-control" id="email" name="email" value="<?= $result['email'] ?>" required>
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="address">Address<span>*</span></label>
-											<input type="text" class="form-control" id="address" placeholder="Street Address" required>
-											<input type="text" class="form-control mt-2" id="address2" placeholder="Apartment, suite, unit, etc. (optional)">
+											<input type="text" class="form-control" id="address" name="address" placeholder="Street Address" required>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="state">district/State<span>*</span></label>
+											<input type="text" class="form-control" id="district" name="district" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="city">Town/City<span>*</span></label>
-											<input type="text" class="form-control" id="city" required>
+											<input type="text" class="form-control" id="city" name="city" required>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="state">Country/State<span>*</span></label>
-											<input type="text" class="form-control" id="state" required>
+									<div class="col-md-6 checkout__payment">
+										<h4>Payment Method</h4>
+										<div class="custom-control custom-radio">
+											<input type="radio" id="onlinePayment" name="paymentMethod" class="custom-control-input">
+											<label class="custom-control-label" for="onlinePayment">Online Payment</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input type="radio" id="cashOnDelivery" name="paymentMethod" class="custom-control-input">
+											<label class="custom-control-label" for="cashOnDelivery">Cash on Delivery</label>
 										</div>
 									</div>
 							<?php
@@ -93,62 +113,15 @@ $userInfor = $user->getUserInfor($userId);
 							}
 							?>
 						</div>
-					</form>
-				</div>
-				<div class="col-lg-4">
-					<div class="checkout__order">
-						<h4>Your Order</h4>
-						<div class="checkout__order__products d-flex justify-content-between">
-							<span class="text-muted">Products</span>
-							<span class="text-muted">Total</span>
-						</div>
-						<ul>
-							<li class="d-flex justify-content-between mt-2">
-								<span class="text-muted">Vegetable’s Package</span>
-								<span class="text-muted">$75.99</span>
-							</li>
-							<li class="d-flex justify-content-between mt-2">
-								<span class="text-muted">Fresh Vegetable</span>
-								<span class="text-muted">$151.99</span>
-							</li>
-							<li class="d-flex justify-content-between mt-2">
-								<span class="text-muted">Organic Bananas</span>
-								<span class="text-muted">$53.99</span>
-							</li>
-						</ul>
-						<hr>
-						<div class="checkout__payment">
-							<h4>Payment Method</h4>
-							<div class="custom-control custom-radio">
-								<input type="radio" id="onlinePayment" name="paymentMethod" class="custom-control-input">
-								<label class="custom-control-label" for="onlinePayment">Online Payment</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input type="radio" id="cashOnDelivery" name="paymentMethod" class="custom-control-input">
-								<label class="custom-control-label" for="cashOnDelivery">Cash on Delivery</label>
-							</div>
-						</div>
-						<div class="checkout__order__subtotal d-flex justify-content-between">
-							<span class="text-muted">Subtotal</span>
-							<span class="text-muted">$750.99</span>
-						</div>
-						<div class="checkout__order__total d-flex justify-content-between mt-2">
-							<div class="size-208">
-								<span class="mtext-101 cl2">
-									Total:
-								</span>
-							</div>
-							<div class="size-109 ">
-								<span class="mtext-110 cl2">
-									$750.99
-								</span>
-							</div>
-						</div>
-						<button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">PLACE ORDER</button>
+					</div>
+					<div class="col-lg-4">
+						<?php
+						$showUserCart = $userCart->showProductOnCheckout();
+						?>
 					</div>
 				</div>
+			</form>
 
-			</div>
 		</div>
 	</section>
 	<!-- Checkout Section End -->
