@@ -229,5 +229,18 @@ class Product
         // Append the HTML for each image to the output string
         return "<img src='admin/$arr[0]' width='$width' height='$height' class='$class' />";
     }
+    
+    public function searchProductByName($keyword)
+    {
+    $sql = "SELECT * FROM products WHERE name LIKE '%$keyword%'";
+    $result = $this->db->select($sql);
+    return $result;
+    }
+
+    public function searchProductByCategories($category_id){
+        $sql= "SELECT * FROM products INNER JOIN products.category_id = categories.id categories WHERE $category_id ='products.category_id' ";
+        $result = $this->db->select($sql);
+        return $result;
+    }
 }
 ?>
