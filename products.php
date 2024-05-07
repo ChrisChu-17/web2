@@ -10,7 +10,8 @@ require('inc/header.php');
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                 <div class="row">
-                    <form id="categoryForm" method="post" action="products.php">
+               
+                    <div id="categoryForm" >
                         <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
                             All Products
                         </button>
@@ -21,42 +22,27 @@ require('inc/header.php');
                         if ($show_category) {
                             while ($result = $show_category->fetch_assoc()) {
                         ?>
-                                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" type="submit" name="category" value="">
+                                 
+                                <button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" type="submit" name="category" data-filter=".<?php echo $result['id']?>">
                                     <?php echo $result['name']; ?>
                                 </button>
+                               
 
                         <?php
                             }
                         }
+                       
+                       
                         ?>
+                       
+                     
+                    </div>
+                   
+                  
 
-                    </form>
-                    <?php
-                    if (isset($_POST['category'])) {
-                        $category_id = $_POST['category'];
-                        $category = new Category();
-                        $search_result = $category->showCategory();
-                    ?>
-                        <div class="row">
-                        <?php   // Kiểm tra xem có kết quả tìm kiếm hay không
-                        if ($search_result) {
 
-                            // Hiển thị kết quả tìm kiếm
-                            while ($result = $search_result->fetch_assoc()) {
-                                // Hiển thị thông tin sản phẩm tìm kiếm ở đây
-                                echo "<h5 class='card-title'>{$result['name']}</h5>";
-                            }
-                        } else {
-
-                            echo "<script>alert('Không có sản phẩm nào được tìm thấy.');</script>";
-                        }
-                    }
-                        ?>
 
                         </div>
-
-
-
 
                         <div class="flex-w flex-c-m m-tb-10">
                             <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
@@ -96,7 +82,9 @@ require('inc/header.php');
              <!-- Filter -->
                         <div class="dis-none panel-filter w-full p-t-10">
                             <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+                               
                                 <div class="filter-col1 p-r-15 p-b-27">
+                               
                                     <div class="mtext-102 cl2 p-b-15">
                                         Sort By
                                     </div>
@@ -132,9 +120,11 @@ require('inc/header.php');
                                             </a>
                                         </li>
                                     </ul>
-
+                                   
+  
+                                
                                 </div>
-
+               
 
                                 <div class="filter-col2 p-r-15 p-b-27">
                                     <div class="mtext-102 cl2 p-b-15">
@@ -287,8 +277,11 @@ require('inc/header.php');
 
 
 
+       
+
+
             <?php
-            // Biến để đánh dấu xem có kết quả tìm kiếm hay không
+            // Biến để đánh dấu xem có kết quả tìm kiếm hay không 2
             $hasSearchResult = false;
 
             if (isset($_POST['search'])) {
@@ -303,7 +296,7 @@ require('inc/header.php');
                     // Hiển thị kết quả tìm kiếm
                     while ($result = $search_result->fetch_assoc()) {
                         // Hiển thị thông tin sản phẩm tìm kiếm ở đây
-                        echo "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>";
+                        echo "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12 '>";
                         echo "<div class='block2-pic hov-img0'>"; //card
                         echo "<h2 a href='details.php?proid={$result['id']}'>{$product->imgProcessForUser($result['images'], 200, 200, 'img-fluid')}</h2>";
                         echo "<a href='details.php?proid={$result['id']}' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04'>Quick view</a>";
@@ -334,7 +327,7 @@ require('inc/header.php');
                                 // Hiển thị danh sách sản phẩm ở đây
                         ?>
 
-                                <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="col-sm-6 col-md-4 col-lg-3 isotope-item <?php echo $result['category']?> ">
                                     <div class="grid_1_of_4 images_1_of_4">
                                         <div class="block2-pic hov-img0">
                                             <a href="details.php?proid=<?php echo $result['id'] ?>"><?php echo $product->imgProcessForUser($result['pimg'], 200, 200, 'img-fluid') ?></a>
@@ -402,6 +395,8 @@ require('inc/header.php');
 </div>
 </div>
 </div>
+
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -90,6 +90,7 @@ class Product
         products.name as pname, 
         products.images as pimg,
         products.price as price,
+     
         brands.name as bname,
         categories.name as cname,
         products.status as pstatus FROM `products` 
@@ -199,8 +200,8 @@ class Product
     public function getProductBreadcrumb($id)
     {
         $sql =
-            "SELECT products.name as pname, products.category_id as pcats,
-            
+            "SELECT products.name as pname, 
+            products.category_id as pcats,
             products.id as pid, categories.name as cname,
 
             categories.id as cid
@@ -237,10 +238,15 @@ class Product
     return $result;
     }
 
-    public function searchProductByCategories($category_id) {
-        $sql = "SELECT * FROM products WHERE category_id = '$category_id'";
+    public function showProductByCategory($category_id) {
+        $sql = "SELECT * FROM products WHERE category_id IN (SELECT category_id FROM other_database.categories WHERE id = $category_id)";
+      
         $result = $this->db->select($sql);
         return $result;
     }
+ 
+
+
+
 }    
 ?>
