@@ -237,10 +237,10 @@ class Product
     return $result;
     }
 
-    public function searchProductByCategories($category_id){
-        $sql= "SELECT * FROM products INNER JOIN products.category_id = categories.id categories WHERE $category_id ='products.category_id' ";
+    public function searchProductByCategories($category_id) {
+        $sql = "SELECT * FROM products WHERE category_id = '$category_id'";
         $result = $this->db->select($sql);
         return $result;
     }
-}
+}    
 ?>
