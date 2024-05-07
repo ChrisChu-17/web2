@@ -3,7 +3,12 @@ require('inc/header.php');
 ?>
 <?php include 'classes/product.php';  ?>
 <?php include 'classes/category.php';  ?>
-<!-- Product -->.
+<?php
+$product = new Product();
+$show_product = $product->showProduct();
+
+?>
+<!-- Product -->
 
 <div class="bg0 m-t-23 p-b-140">
     <div class="container">
@@ -11,24 +16,29 @@ require('inc/header.php');
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                 <div class="row">
                     <div id="categoryForm">
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
-                            All Products
-                        </button>
+                        <a href="products.php">
+                            <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
+                                All Products
+                            </button>
+                        </a>
+
                         <?php
                         $category = new category();
                         $show_category = $category->showCategory();
-
                         if ($show_category) {
                             while ($result = $show_category->fetch_assoc()) {
                         ?>
-
-                                <button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" type="submit" name="category" data-filter=".<?php echo $result['id'] ?>">
-                                    <?php echo $result['name']; ?>
-                                </button>
+                                <!-- Thêm category_id vào URL khi bấm vào nút danh mục -->
+                                <a href="products.php?category_slug=<?php echo $result['slug'] ?>">
+                                    <button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" type="submit" name="category" data-filter=".<?php echo $result['slug'] ?>">
+                                        <?php echo $result['name']; ?>
+                                    </button>
+                                </a>
                         <?php
                             }
                         }
                         ?>
+
                     </div>
                 </div>
             </div>
@@ -62,49 +72,49 @@ require('inc/header.php');
             <!-- Filter -->
             <div class="dis-none panel-filter w-full p-t-10">
                 <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-
                     <div class="filter-col1 p-r-15 p-b-27">
-
                         <div class="mtext-102 cl2 p-b-15">
                             Sort By
                         </div>
+
                         <ul>
                             <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04" data-keyword="Default">
+                                <a href="#" class="filter-link stext-106 trans-04">
                                     Default
                                 </a>
                             </li>
+
                             <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04" data-keyword="Popularity">
+                                <a href="#" class="filter-link stext-106 trans-04">
                                     Popularity
                                 </a>
                             </li>
+
                             <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04" data-keyword="Average rating">
+                                <a href="#" class="filter-link stext-106 trans-04">
                                     Average rating
                                 </a>
                             </li>
+
                             <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active" data-keyword="Newness">
+                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
                                     Newness
                                 </a>
                             </li>
+
                             <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04" data-keyword="Price: Low to High">
+                                <a href="#" class="filter-link stext-106 trans-04">
                                     Price: Low to High
                                 </a>
                             </li>
+
                             <li class="p-b-6">
-                                <a href="#" class="filter-link stext-106 trans-04" data-keyword="Price: High to Low">
+                                <a href="#" class="filter-link stext-106 trans-04">
                                     Price: High to Low
                                 </a>
                             </li>
                         </ul>
-
-
-
                     </div>
-
 
                     <div class="filter-col2 p-r-15 p-b-27">
                         <div class="mtext-102 cl2 p-b-15">
@@ -152,7 +162,7 @@ require('inc/header.php');
 
                     <div class="filter-col3 p-r-15 p-b-27">
                         <div class="mtext-102 cl2 p-b-15">
-                            Brand
+                            Color
                         </div>
 
                         <ul>
@@ -162,7 +172,7 @@ require('inc/header.php');
                                 </span>
 
                                 <a href="#" class="filter-link stext-106 trans-04">
-                                    H&M
+                                    Black
                                 </a>
                             </li>
 
@@ -172,7 +182,7 @@ require('inc/header.php');
                                 </span>
 
                                 <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                    LEVIS
+                                    Blue
                                 </a>
                             </li>
 
@@ -182,7 +192,7 @@ require('inc/header.php');
                                 </span>
 
                                 <a href="#" class="filter-link stext-106 trans-04">
-                                    RALPH LAUREN
+                                    Grey
                                 </a>
                             </li>
 
@@ -192,8 +202,7 @@ require('inc/header.php');
                                 </span>
 
                                 <a href="#" class="filter-link stext-106 trans-04">
-                                    TOMMY HILFIGER
-
+                                    Green
                                 </a>
                             </li>
 
@@ -203,9 +212,8 @@ require('inc/header.php');
                                 </span>
 
                                 <a href="#" class="filter-link stext-106 trans-04">
-                                    UNIQLO
+                                    Red
                                 </a>
-
                             </li>
 
                             <li class="p-b-6">
@@ -214,7 +222,7 @@ require('inc/header.php');
                                 </span>
 
                                 <a href="#" class="filter-link stext-106 trans-04">
-                                    WRANGLER
+                                    White
                                 </a>
                             </li>
                         </ul>
@@ -222,29 +230,28 @@ require('inc/header.php');
 
                     <div class="filter-col4 p-b-27">
                         <div class="mtext-102 cl2 p-b-15">
-                            Category
+                            Tags
                         </div>
 
                         <div class="flex-w p-t-4 m-r--5">
                             <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                TROUSER
+                                Fashion
                             </a>
 
                             <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-
-                                t-shirts
+                                Lifestyle
                             </a>
 
                             <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                accessories
+                                Denim
                             </a>
 
                             <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                jewelry
+                                Streetstyle
                             </a>
 
                             <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                underwear
+                                Crafts
                             </a>
                         </div>
                     </div>
@@ -252,7 +259,7 @@ require('inc/header.php');
             </div>
 
             <?php
-            // Biến để đánh dấu xem có kết quả tìm kiếm hay không 2
+            // Biến để đánh dấu xem có kết quả tìm kiếm hay không
             $hasSearchResult = false;
 
             if (isset($_POST['search'])) {
@@ -267,7 +274,7 @@ require('inc/header.php');
                     // Hiển thị kết quả tìm kiếm
                     while ($result = $search_result->fetch_assoc()) {
                         // Hiển thị thông tin sản phẩm tìm kiếm ở đây
-                        echo "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12 '>";
+                        echo "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>";
                         echo "<div class='block2-pic hov-img0'>"; //card
                         echo "<h2 a href='details.php?proid={$result['id']}'>{$product->imgProcessForUser($result['images'], 200, 200, 'img-fluid')}</h2>";
                         echo "<a href='details.php?proid={$result['id']}' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04'>Quick view</a>";
@@ -280,66 +287,99 @@ require('inc/header.php');
                         echo "</div>";
                     }
                 } else {
-
                     echo "<script>alert('Không có sản phẩm nào được tìm thấy.');</script>";
                 }
             }
                 ?>
+                </div>
+                <?php if (!$hasSearchResult) { ?>
+                    <div class="row">
+                        <?php
+                        if (isset($_GET['category_slug'])) {
+                            $category_slug = $_GET['category_slug'];
+                            $showProductByCats = $product->showProductByCategory($category_slug);
+                            if ($showProductByCats) {
+                                while ($result = $showProductByCats->fetch_assoc()) {
+                        ?>
+                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                        <div class="block2-pic hov-img0">
+                                            <?= $product->imgProcessForUser($result['images'], 200, 200, 'img-fluid') ?>
 
-                <div class="flex-w flex-c-m m-tb-10">
-                    <?php if (!$hasSearchResult) { ?>
+                                            <a href="details.php?proid=<?php echo $result['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                                Quick View
+                                            </a>
 
-                        <div class="row">
-                            <?php $product = new Product();
-                            $show_product = $product->showProduct();
-                            if ($show_product) {
-                                while ($result = $show_product->fetch_assoc()) {
-                                    // Hiển thị danh sách sản phẩm ở đây
-                            ?>
+                                        </div>
 
-                                    <div class="col-sm-6 col-md-4 col-lg-3 isotope-item ">
-                                        <div class="grid_1_of_4 images_1_of_4">
-                                            <div class="block2-pic hov-img0">
-                                                <a href="details.php?proid=<?php echo $result['id'] ?>"><?php echo $product->imgProcessForUser($result['pimg'], 200, 200, 'img-fluid') ?></a>
-                                                <a href="details.php?proid=<?php echo $result['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
-                                                    Quick View
+                                        <div class="block2-txt flex-w flex-t p-t-14">
+                                            <div class="block2-txt-child1 flex-col-l ">
+                                                <a href="details.php?proid=<?php echo $result['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                    <?= $result['name'] ?>
+                                                </a>
+
+                                                <span class="stext-105 cl3">
+                                                    <?= $result['price'] ?>
+                                                </span>
+                                            </div>
+
+                                            <div class="block2-txt-child2 flex-r p-t-3">
+                                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                                                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
                                                 </a>
                                             </div>
-                                            <h5 class="text-muted mt-3 mb-1"><?php echo $result['pname'] ?></h5>
-                                            <p><span class="price"><?php echo $result['price'] ?>VND</span></p>
-
-
-                                            <div class="button"><span><a href=""></a></span></div>
                                         </div>
                                     </div>
-                        <?php        }
+                                <?php
+                                }
+                            }
+                        } else {
+                            // Nếu không có thể loại được chọn, hiển thị tất cả sản phẩm
+                            if ($show_product) {
+                                while ($result = $show_product->fetch_assoc()) {
+                                ?>
+                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                        <div class=" block2-pic hov-img0">
+                                            <?= $product->imgProcessForUser($result['pimg'], 200, 200, 'img-fluid') ?>
+
+                                            <a href="details.php?proid=<?php echo $result['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                                Quick View
+                                            </a>
+
+                                        </div>
+
+                                        <div class="block2-txt flex-w flex-t p-t-14">
+                                            <div class="block2-txt-child1 flex-col-l ">
+                                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                    <?= $result['pname'] ?>
+                                                </a>
+
+                                                <span class="stext-105 cl3">
+                                                    <?= $result['price'] ?>
+                                                </span>
+                                            </div>
+
+                                            <div class="block2-txt-child2 flex-r p-t-3">
+                                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                                                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                    <?php
+                                }
                             }
                         }
-                        ?>
-                        </div>
-                </div>
-                </div>
-        </div>
+                    }
+                    ?>
+                    </div>
 
 
-        <!-- Load more -->
-        <div class="flex-c-m flex-w w-full p-t-45">
-            <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                Load More
-            </a>
         </div>
     </div>
 </div>
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="path/to/your/isotope.pkgd.min.js"></script>
-
-
-
+</div>
 
 <?php
 require('inc/footer.php');

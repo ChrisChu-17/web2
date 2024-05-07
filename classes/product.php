@@ -230,23 +230,30 @@ class Product
         // Append the HTML for each image to the output string
         return "<img src='admin/$arr[0]' width='$width' height='$height' class='$class' />";
     }
-    
+
     public function searchProductByName($keyword)
     {
-    $sql = "SELECT * FROM products WHERE name LIKE '%$keyword%'";
-    $result = $this->db->select($sql);
-    return $result;
-    }
-
-    public function showProductByCategory($category_id) {
-        $sql = "SELECT * FROM products WHERE category_id IN (SELECT category_id FROM other_database.categories WHERE id = $category_id)";
-      
+        $sql = "SELECT * FROM products WHERE name LIKE '%$keyword%'";
         $result = $this->db->select($sql);
         return $result;
     }
- 
 
+    // public function showProductByCategory($category_id)
+    // {
+    //     $sql = "SELECT products.id as pid, products.name as pname, products.images as pimg, products.price as price
+    //             FROM products
+    //             WHERE products.category_id = $category_id";
 
+    //     $result = $this->db->select($sql);
+    //     return $result;
+    // }
 
-}    
+    public function showProductByCategory($category_slug)
+    {
+        $category_slug = $this->db->link->real_escape_string($category_slug);
+        $query = "SELECT * FROM products WHERE category_id IN (SELECT id FROM categories WHERE slug = '$category_slug')";
+        $result = $this->db->select($query);
+        return $result;
+    }
+}
 ?>
