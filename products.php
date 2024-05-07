@@ -257,10 +257,6 @@ require('inc/header.php');
             </div>
         </div>
 
-
-
-
-
         <?php
         // Biến để đánh dấu xem có kết quả tìm kiếm hay không
         $hasSearchResult = false;
@@ -271,103 +267,82 @@ require('inc/header.php');
             $search_result = $product->searchProductByName($keyword);
         ?>
             <div class="row">
-            <?php   // Kiểm tra xem có kết quả tìm kiếm hay không
-            if ($search_result && $search_result->num_rows > 0) {
-                $hasSearchResult = true;
-                // Hiển thị kết quả tìm kiếm
-                while ($result = $search_result->fetch_assoc()) {
-                    // Hiển thị thông tin sản phẩm tìm kiếm ở đây
-                    echo "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>";
-                    echo "<div class='block2-pic hov-img0'>"; //card
-                    echo "<h2 a href='details.php?proid={$result['id']}'>{$product->imgProcessForUser($result['images'], 200, 200, 'img-fluid')}</h2>";
-                    echo "<a href='details.php?proid={$result['id']}' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04'>Quick view</a>";
-                    echo "</div>";
-                    echo "<div class='card-body'>";
-                    echo "<h5 class='card-title'>{$result['name']}</h5>";
-                    echo "<p class='card-text'>Price: {$result['price']} VND</p>";
-                    echo "{$result['category_id']}";
-                    echo "</div>";
-                    echo "</div>";
+                <?php   // Kiểm tra xem có kết quả tìm kiếm hay không
+                if ($search_result && $search_result->num_rows > 0) {
+                    $hasSearchResult = true;
+                    // Hiển thị kết quả tìm kiếm
+                    while ($result = $search_result->fetch_assoc()) {
+                        // Hiển thị thông tin sản phẩm tìm kiếm ở đây
+                        echo "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>";
+                        echo "<div class='block2-pic hov-img0'>"; //card
+                        echo "<h2 a href='details.php?proid={$result['id']}'>{$product->imgProcessForUser($result['images'], 200, 200, 'img-fluid')}</h2>";
+                        echo "<a href='details.php?proid={$result['id']}' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04'>Quick view</a>";
+                        echo "</div>";
+                        echo "<div class='card-body'>";
+                        echo "<h5 class='card-title'>{$result['name']}</h5>";
+                        echo "<p class='card-text'>Price: {$result['price']} VND</p>";
+                        echo "{$result['category_id']}";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                } else {
+
+                    echo "<script>alert('Không có sản phẩm nào được tìm thấy.');</script>";
                 }
-            } else {
-
-                echo "<script>alert('Không có sản phẩm nào được tìm thấy.');</script>";
             }
-        }
-            ?>
-            </div>
-            <div class="block2">
-                <div class="row">
-                    <?php if (!$hasSearchResult) {
-                        $product = new Product();
-                        $show_product = $product->showProduct();
-                        if ($show_product) {
-                            while ($result = $show_product->fetch_assoc()) {
-                                // Hiển thị danh sách sản phẩm ở đây
-                    ?>
 
-                                <div class="col-sm-6 col-md-4 col-lg-3">
-                                    <div class="grid_1_of_4 images_1_of_4">
-                                        <div class="block2-pic hov-img0">
-                                            <a href="details.php?proid=<?php echo $result['id'] ?>"><?php echo $product->imgProcessForUser($result['pimg'], 200, 200, 'img-fluid') ?></a>
-                                            <a href="details.php?proid=<?php echo $result['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
-                                                Quick View
-                                            </a>
-                                        </div>
-                                        <h5 class="text-muted mt-3 mb-1"><?php echo $result['pname'] ?></h5>
+
+            if (!$hasSearchResult) {
+                ?>
+                <!-- Load more -->
+                <div class="flex-c-m flex-w w-full p-t-45">
+                    <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+                        Load More
+                    </a>
+                </div>
+            <?php
+            }
+            ?>
+
+            <div class="block2">
+
+                <div class="row">
+                    <?php
+                    $product = new Product();
+                    $show_product = $product->showProduct();
+                    if ($show_product) {
+                        while ($result = $show_product->fetch_assoc()) {
+                    ?>
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="grid_1_of_4 images_1_of_4">
+                                    <div class="block2-pic hov-img0">
+                                        <a href="details.php?proid=<?php echo $result['id'] ?>"><?php echo $product->imgProcessForUser($result['pimg'], 200, 200, 'img-fluid') ?></a>
+                                        <a href="details.php?proid=<?php echo $result['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                            Quick View
+                                        </a>
+                                    </div>
+                                    <h5 class="text-muted mt-3 mb-1"><?php echo $result['pname'] ?></h2>
                                         <p><span class="price"><?php echo $result['price'] ?>VND</span></p>
 
 
                                         <div class="button"><span><a href=""></a></span></div>
-                                    </div>
                                 </div>
-                    <?php        }
+                            </div>
+                    <?php
                         }
                     }
                     ?>
                 </div>
             </div>
-
-
-            <!--<div class="block2">
-       
-            <div class="row">
-                <?php
-                $product = new Product();
-                $show_product = $product->showProduct();
-                if ($show_product) {
-                    while ($result = $show_product->fetch_assoc()) {
-                ?>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="grid_1_of_4 images_1_of_4">
-                                <div class="block2-pic hov-img0">
-                                    <a href="details.php?proid=<?php echo $result['id'] ?>"><?php echo $product->imgProcessForUser($result['pimg'], 200, 200, 'img-fluid') ?></a>
-                                    <a href="details.php?proid=<?php echo $result['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
-                                        Quick View
-                                    </a>
-                                </div>
-                                <h5 class="text-muted mt-3 mb-1"><?php echo $result['pname'] ?></h5>
-                                    <p><span class="price"><?php echo $result['price'] ?>VND</span></p>
-
-
-                                    <div class="button"><span><a href=""></a></span></div>
-                            </div>
-                        </div>
-                <?php
-                    }
-                }
-                ?>
             </div>
-        </div> -->
     </div>
-</div>
 
-<!-- Load more -->
-<div class="flex-c-m flex-w w-full p-t-45">
-    <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-        Load More
-    </a>
-</div>
+    <!-- Load more -->
+    <div class="flex-c-m flex-w w-full p-t-45">
+        <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+            Load More
+        </a>
+    </div>
 </div>
 </div>
 
