@@ -107,15 +107,11 @@ class LoginUser
     public function updateUser($data, $id)
     {
         $userId = mysqli_real_escape_string($this->db->link, $id);
-        $fullname = mysqli_real_escape_string($this->db->link, $data['fullname']);
+        $fullname = mysqli_real_escape_string($this->db->link, $data['fullName']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
-        $password = mysqli_real_escape_string($this->db->link, md5($data['password']));
-        if (empty($fullname) || empty($email) || empty($phone) || empty($password)) {
-            $alert = "<span class='error'>không được để trống</span>";
-            return $alert;
-        } else {
-            $sql = "UPDATE users SET name = '$fullname', email = '$email', password = '$password', phone = '$phone' WHERE id = '$id'";
+       
+            $sql = "UPDATE users SET name = '$fullname', email = '$email', phone = '$phone' WHERE id = '$id'";
             $result = $this->db->update($sql);
             if ($result) {
                 $alert = "<span class='success'>đã cập nhật thành công</span>";
@@ -124,7 +120,7 @@ class LoginUser
                 $alert = "<span class='error'>chưa được cập nhật </span>";
                 return $alert;
             }
-        }
+        
     }
 
     public function getUserById($id)
