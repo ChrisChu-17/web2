@@ -69,7 +69,7 @@ $show_product = $product->showProduct();
                 </form>
             </div>
 
-            <!-- Filter -->
+            <!-- Filter oke-->
             <div class="dis-none panel-filter w-full p-t-10">
                 <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
                     <div class="filter-col1 p-r-15 p-b-27">
