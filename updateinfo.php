@@ -37,16 +37,7 @@ if (isset($_POST['submit'])) {
     } else {
         echo "<div class='alert alert-danger'>$result</div>";
     }
-}else
-if (isset($_POST['submit'])) {
-    $newPhone = $_POST['updatePhone'];
-    $result = $user->updateUserPhone($userId,array('phone'=>$newPhone));
-    if ($result) {
-        echo "<div class='alert alert-success'>$result</div>";
-        header("Location:infoUser.php");
-    } else {
-        echo "<div class='alert alert-danger'>$result</div>";
-    }
+
 }
 ?>
 

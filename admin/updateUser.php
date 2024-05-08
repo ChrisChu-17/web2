@@ -1,5 +1,4 @@
-
-
+<?php require('include/header.php');?>
 <?php include_once('../classes/LoginUSer.php'); ?>
 <?php
 $user = new LoginUser();

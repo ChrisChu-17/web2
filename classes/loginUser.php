@@ -1,4 +1,3 @@
-
 <?php
 $filepath = realpath(dirname(__FILE__));
 include_once($filepath . '/../lib/session.php');
@@ -36,7 +35,7 @@ class LoginUser
             return $alert;
         } else {
 
-            $query = "INSERT INTO `users` (`name`, `email`, `password`, `phone`)
+            $query = "INSERT INTO users (name, email, password, phone)
              VALUES ('$name', '$email', '$password', '$phone')";
 
 
@@ -60,7 +59,8 @@ class LoginUser
             $alert = "<span class='error'>Không được để trống</span>";
             return $alert;
         } else {
-            $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' AND status = 'Active'"; // Thêm điều kiện kiểm tra trạng thái tài khoản
+
+            $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
             $result = $this->db->select($query);
             if ($result != false) {
                 $value = $result->fetch_assoc();
@@ -68,12 +68,11 @@ class LoginUser
                 Session::set('userId', $value['id']);
                 Session::set('userName', $value['name']);
             } else {
-                $alert = "<script>alert('Tài khoản hoặc mật khẩu không đúng hoặc tài khoản đã bị chặn')</script>"; // Thông báo tài khoản đã bị chặn
+                $alert = "<span class='error'>Tài khoản hoặc mật khẩu không đúng</span>";
                 return $alert;
             }
         }
     }
-
 
     public function getUserInfor($id)
     {
@@ -82,8 +81,7 @@ class LoginUser
         $result = $this->db->select($query);
         return $result;
     }
-
-    public function showListUser()
+    public function updateUser($id, $data)
     {
         $sql = "SELECT * FROM USERS ORDER BY id ";
         $result = $this->db->select($sql);
@@ -110,19 +108,48 @@ class LoginUser
         $fullname = mysqli_real_escape_string($this->db->link, $data['fullName']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
-       
-            $sql = "UPDATE users SET name = '$fullname', email = '$email', phone = '$phone' WHERE id = '$id'";
-            $result = $this->db->update($sql);
+
+        $sql = "UPDATE users SET name = '$fullname', email = '$email', phone = '$phone' WHERE id = '$id'";
+        $result = $this->db->update($sql);
+        $name = mysqli_real_escape_string($this->db->link, $data['name']);
+        $email = mysqli_real_escape_string($this->db->link, $data['email']);
+        $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
+
+        // Kiểm tra dữ liệu
+        if (empty($name) || empty($email) || empty($phone)) {
+            $alert = "<span class='error'>Không được để trống</span>";
+            return $alert;
+        } else {
+            // Xây dựng câu truy vấn cập nhật thông tin người dùng
+            $query = "UPDATE users SET name='$name', email='$email', phone='$phone'";
+
+            // Kiểm tra xem mật khẩu mới có được cung cấp hay không
+            if (isset($data['password']) && !empty($data['password'])) {
+                // Nếu có mật khẩu mới, mã hóa mật khẩu mới trước khi cập nhật vào cơ sở dữ liệu
+                $password = mysqli_real_escape_string($this->db->link, $data['password']);
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $query .= ", password='$hashedPassword'";
+            }
+
+            // Bổ sung điều kiện WHERE để chỉ cập nhật thông tin cho người dùng cụ thể
+            $query .= " WHERE id='$id'";
+
+            // Thực hiện câu truy vấn cập nhật
+            $result = $this->db->update($query);
+
+            // Kiểm tra kết quả và trả về thông báo tương ứng
             if ($result) {
-                $alert = "<span class='success'>đã cập nhật thành công</span>";
+                $alert = "Cập nhật thông tin người dùng thành công";
                 return $alert;
+                // Nếu bạn đặt return ở đây, dòng header() sẽ không được thực hiện
+                // Vì vậy, nếu muốn chuyển hướng sau khi cập nhật thành công, bạn cần di chuyển dòng header() ra ngoài khối này
+                // header("Location:infoUser.php");
             } else {
-                $alert = "<span class='error'>chưa được cập nhật </span>";
+                $alert = "Cập nhật thông tin người dùng không thành công";
                 return $alert;
             }
-        
+        }
     }
-
     public function getUserById($id)
     {
         $sql = "SELECT * FROM users WHERE id = $id";
@@ -130,4 +157,10 @@ class LoginUser
         return $result;
     }
 }
+
+
+
+
+
+
 ?>
