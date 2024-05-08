@@ -88,7 +88,7 @@
     <div id="collapseOrder" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Đơn hàng:</h6>
-            <a class="collapse-item" href="buttons.html">Liệt kê</a>
+            <a class="collapse-item" href="listOrder.php">Liệt kê</a>
             <a class="collapse-item" href="cards.html">Thêm mới</a>
         </div>
     </div>

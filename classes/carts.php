@@ -9,7 +9,7 @@ class Cart
 {
     private $db;
     private $fm;
- 
+
     public function __construct()
     {
         $this->db = new Database();
@@ -86,7 +86,7 @@ class Cart
                     // Chuyển đổi các giá trị thành số nguyên
                     $price = intval($product[2]);
                     $quantity = intval($product[3]);
-
+                    $productName = $product[1];
                     // Tính tổng giá tiền của sản phẩm
                     $totalOnProduct = $price * $quantity;
                     global $total;
@@ -94,7 +94,7 @@ class Cart
                     echo '
                     <ul>
                         <li class="d-flex justify-content-between mt-2">
-                            <span class="text-muted">' . $product[1] . '</span>
+                            <span class="text-muted">' . $productName . '</span>
                             <span class="text-muted">$' . $totalOnProduct . '</span>
                         </li>
                     </ul>';
@@ -148,16 +148,37 @@ class Cart
         }
     }
 
-    public function createOrderDetail($product, $file, $idUserCart)
+    public function createOrderDetail($product, $idUserCart)
     {
-        $name = mysqli_real_escape_string($this->db->link, $product[1]);
         $price = mysqli_real_escape_string($this->db->link, intval($product[2]));
         $quantity = mysqli_real_escape_string($this->db->link, intval($product[3]));
         $productId = mysqli_real_escape_string($this->db->link, $product[4]);
         $total = $price * $quantity;
 
-        $query = "INSERT INTO `order_details`(`id`, `order_id`, `product_id`, `name`, `price`, `qty`, `total`, `created_at`, `updated_at`) 
-        VALUES (0, $idUserCart, $productId,'$name', $price, $quantity, $total, now(), now())";
+        $query = "INSERT INTO `order_details`(`id`, `order_id`, `product_id`, `price`, `qty`, `total`, `created_at`, `updated_at`) 
+        VALUES (0, $idUserCart, $productId, $price, $quantity, $total, now(), now())";
         $result = $this->db->insert($query);
     }
+
+    public function showOrder()
+    {
+        $sql = "select * from orders order by created_at";
+        $result = $this->db->select($sql);
+        return $result;
+    }
+
+    public function showOrderById($id)
+    {
+        $sql = "SELECT * FROM orders WHERE id = $id";
+        $result = $this->db->select($sql);
+        return $result;
+    }
+
+    public function showOrderDetailByOrderId($id)
+    {
+        $sql = "select *, products.name as pname, order_details.price as oprice  from products, order_details where products.id=order_details.product_id and order_id=$id";
+        $result = $this->db->select($sql);
+        return $result;
+    }
+
 }

@@ -7,13 +7,14 @@ $user = new LoginUser();
 $userCart = new Cart();
 $userId = Session::get('userId');
 $userInfor = $user->getUserInfor($userId);
-
-if (isset($_POST['placeOrder']) && ($_POST['placeOrder'])) {
-	$idUserCart = $userCart->createOrder($_POST, $userId);
-	foreach ($_SESSION['cart'] as $product) {
-		$userOrderDetail = $userCart->createOrderDetail($product, $_FILES, $idUserCart);
+if (isset($_SESSION['cart'])) {
+	if (isset($_POST['placeOrder']) && ($_POST['placeOrder'])) {
+		$idUserCart = $userCart->createOrder($_POST, $userId);
+		foreach ($_SESSION['cart'] as $product) {
+			$userOrderDetail = $userCart->createOrderDetail($product, $idUserCart);
+		}
+		unset($_SESSION['cart']);
 	}
-	unset($_SESSION['cart']);
 }
 ?>
 <!DOCTYPE html>
