@@ -71,6 +71,42 @@ $showCart = $cart->showOrder();
         </div>
     </div>
 
+    <!-- Form lọc -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lọc người dùng</h6>
+        </div>
+        <div class="card-body">
+            <form method="get" action="">
+                <!-- Dropdown tình trạng -->
+                <div class="form-group">
+                    <label for="status">Tình trạng:</label>
+                    <select class="form-control" id="status" name="status">
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                <!-- Trường nhập ngày từ ngày -->
+                <div class="form-group">
+                    <label for="fromDate">Từ ngày:</label>
+                    <input type="date" class="form-control" id="fromDate" name="fromDate">
+                </div>
+                <!-- Trường nhập ngày đến ngày -->
+                <div class="form-group">
+                    <label for="toDate">Đến ngày:</label>
+                    <input type="date" class="form-control" id="toDate" name="toDate">
+                </div>
+                <!-- Trường nhập địa điểm -->
+                <div class="form-group">
+                    <label for="deliveryLocation">Địa điểm giao hàng:</label>
+                    <input type="text" class="form-control" id="deliveryLocation" name="deliveryLocation">
+                </div>
+                <!-- Nút lọc -->
+                <button type="submit" class="btn btn-primary">Lọc</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 <?php
