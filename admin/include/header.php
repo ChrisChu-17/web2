@@ -1,3 +1,7 @@
+<?php
+
+include '../classes/loginAdmin.php'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,6 +44,7 @@
         <div id="content">
           <!-- Topbar -->
           <?php require('topbar.php'); ?>
+          
           <!-- End of Topbar -->
                     <!-- Begin Page Content -->
                     <div class="container-fluid">

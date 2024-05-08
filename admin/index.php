@@ -440,6 +440,7 @@ require('include/header.php');
                   </div>
                 </div>
               </div>
+      
             </div>
          <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -459,6 +460,3 @@ require('include/header.php');
     <script src="js/demo/chart-pie-demo.js"></script>
 
       
-<?php
-require('include/footer.php');
-?>
