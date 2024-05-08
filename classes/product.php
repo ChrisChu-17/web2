@@ -224,10 +224,7 @@ class Product
 
     function imgProcessForUser($arrstr, $width, $height, $class)
     {
-        // Split the input string into an array of image names
         $arr = explode(";", $arrstr);
-
-        // Append the HTML for each image to the output string
         return "<img src='admin/$arr[0]' width='$width' height='$height' class='$class' />";
     }
 

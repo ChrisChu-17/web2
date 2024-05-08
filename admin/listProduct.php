@@ -75,3 +75,7 @@ if (!isset($_GET['delete']) || $_GET['delete'] == NULL) {
   </div>
 
 </div>
+
+<?php
+require('include/footer.php');
+?>

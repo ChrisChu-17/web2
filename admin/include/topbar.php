@@ -1,4 +1,8 @@
+<?php
+include '../lib/session.php';
 
+include '../classes/loginAdmin.php'; 
+?>
 
 <nav
             class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
@@ -249,7 +253,24 @@
                   <li class="nav-item dropdown no-arrow mx-1">
                 
                  
-                  
+                  <?php
+                    $login_admin = Session::get('loginAdmin');
+                    if ($login_admin == true) {
+                        echo '<a href="login.php">Đăng nhập</a></div>';
+                    } else {
+                        echo '<a href="logoutAdmin.php">Đăng xuất</a></div>';
+                    }
+                    ?>
+                    <?php
+                    if (!isset($_GET['id']) || $_GET['id'] == NULL) {
+                        // echo "<script> window.location = 'catlist.php' </script>";
+                    } else {
+                        $id = $_GET['id'];
+                        Session::destroy();
+                        header("Location: login.php");
+                        exit();
+                    }
+                    ?> 
                   </li>
 
 
@@ -313,22 +334,5 @@
                 </div>
               </li>
             </ul>
-            <?php
-                    $login_admin = Session::get('loginAdmin');
-                    if ($login_admin == true) {
-                        echo '<a href="login.php">Đăng nhập</a></div>';
-                    } else {
-                        echo '<a href="logoutAdmin.php">Đăng xuất</a></div>';
-                    }
-                    ?>
-                    <?php
-                    if (!isset($_GET['id']) || $_GET['id'] == NULL) {
-                        // echo "<script> window.location = 'catlist.php' </script>";
-                    } else {
-                        $id = $_GET['id'];
-                        Session::destroy();
-                        header("Location: login.php");
-                        exit();
-                    }
-                    ?> 
+          
           </nav>

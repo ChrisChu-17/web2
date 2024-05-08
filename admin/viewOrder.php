@@ -9,7 +9,7 @@ if (isset($_GET['id']) && (!empty($_GET['id']))) {
 
     if (isset($_POST['btnUpdate']) && ($_POST['btnUpdate'])) {
         $status = $_POST['status'];
-        $updateOrder = $order->updateOrder( $orderId, $status);
+        $updateOrder = $order->updateOrder($orderId, $status);
         if ($updateOrder) {
             header('Location: listBrands.php');
             exit;

@@ -2,14 +2,15 @@
 require('include/header.php');
 ?>
 <?php include '../classes/brand.php';  ?>
+<?php include '../classes/loginUser.php';  ?>
 <?php
 // gọi class category
-$brand = new Brand();
-if (!isset($_GET['delete']) || $_GET['delete'] == NULL) {
+$user = new LoginUser();
+if (!isset($_GET['block']) || $_GET['block'] == NULL) {
     // echo "<script> window.location = 'catlist.php' </script>";
 } else {
-    $id = $_GET['delete']; // Lấy catid trên host
-    $deleteBrand = $brand->deleteBrand($id); // hàm check delete Name khi submit lên
+    $userId = $_GET['block']; 
+    $blockUser = $user->toggleUserStatus($userId); 
 }
 ?>
 <div>
@@ -18,51 +19,46 @@ if (!isset($_GET['delete']) || $_GET['delete'] == NULL) {
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Danh sách thương hiệu</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng</h6>
         </div>
-        <?php
-        if (isset($deleteBrand)) {
-            echo $deleteBrand;
-        }
-        ?>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Brand</th>
-                            <th>Slug</th>
+                            <th>Fullname</th>
+                            <th>Email</th>
                             <th>Status</th>
                             <th>Operation</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Brand</th>
-                            <th>Slug</th>
+                            <th>Fullname</th>
+                            <th>Email</th>
                             <th>Status</th>
                             <th>Operation</th>
                         </tr>
                     </tfoot>
-                    <tbody>
-                        <?php
-                        $showBrand = $brand->showBrand();
-                        if ($showBrand) {
-                            while ($result = $showBrand->fetch_assoc()) {
-                        ?>
-                                <tr>
-                                    <td><?php echo $result['name']; ?></td>
-                                    <td><?php echo $result['slug']; ?></td>
-                                    <td><?php echo $result['status']; ?></td>
-                                    <td><a href="?delete=<?php echo $result['id']; ?>" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa <?php echo $result['name']?> ?');">Delete</a>
-                                        <a href="updateBrand.php?brandId=<?php echo $result['id']; ?>" class="btn btn-warning">Edit</a>
-                                    </td>
+                    <?php
+                    $listUser = $user->showListUser();
+                    if ($listUser) {
+                        while ($result = $listUser->fetch_assoc()) {
+                    ?>
+                            <tr>
+                                <td><?php echo $result['name']; ?></td>
+                                <td><?php echo $result['email']; ?></td>
+                                <td><?php echo $result['status']; ?></td>
+                                <td>
+                                <a href="?block=<?php echo $result['id']; ?>" class="btn btn-<?php echo $result['status'] == 'Active' ? 'danger' : 'success'; ?>" onclick="return confirm('Bạn có muốn <?php echo $result['status'] == 'Active' ? 'khoá' : 'mở khóa'; ?> <?php echo $result['name'] ?> ?');"><?php echo $result['status'] == 'Active' ? 'Block' : 'Unblock'; ?></a>
+                                    <a href="updateUser.php?id=<?= $result['id']; ?>" class="btn btn-warning">Edit</a>
+                                </td>
 
-                                </tr>
-                        <?php
-                            }
+                            </tr>
+                    <?php
                         }
-                        ?>
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -70,7 +66,3 @@ if (!isset($_GET['delete']) || $_GET['delete'] == NULL) {
     </div>
 
 </div>
-
-<?php
-require('include/footer.php');
-?>
