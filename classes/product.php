@@ -252,5 +252,36 @@ class Product
         $result = $this->db->select($query);
         return $result;
     }
+    // Phương thức lấy sản phẩm cho trang hiện tại
+    public function getProductsForPage($limit, $offset,)
+    {
+        $sql = "SELECT * FROM products LIMIT $limit OFFSET $offset ";
+        $result = $this->db->select($sql);
+        return $result;
+    }
+
+    // Phương thức lấy tổng số lượng sản phẩm
+    public function getTotalProductsCount()
+    {
+        $query = "SELECT COUNT(*) as total FROM products";
+        $result = $this->db->select($query);
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+
+    public function searchProductByNameForPage($keyword, $limit, $offset)
+    {
+        $sql = "SELECT * FROM products WHERE name LIKE '%$keyword%' LIMIT $limit OFFSET $offset";
+        $result = $this->db->select($sql);
+        return $result;
+    }
+    public function getTotalProductsCountBySearch($keyword)
+    {
+        $query = "SELECT COUNT(*) as total FROM products WHERE name LIKE '%$keyword%'";
+        $result = $this->db->select($query);
+        $row = $result->fetch_assoc();
+
+        return $row['total'];
+    }
 }
 ?>
