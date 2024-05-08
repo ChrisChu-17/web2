@@ -15,11 +15,6 @@ $showCart = $cart->showOrder();
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Danh sách thể loại</h6>
         </div>
-        <?php
-        if (isset($delCat)) {
-            echo $delCat;
-        }
-        ?>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -72,7 +67,3 @@ $showCart = $cart->showOrder();
     </div>
 
 </div>
-
-<?php
-require('include/footer.php');
-?>

@@ -181,4 +181,14 @@ class Cart
         return $result;
     }
 
+
+    public function updateOrder($id, $status)
+    {
+        $sql = "UPDATE `orders` SET status =  '$status' WHERE `id`=$id";
+        $result = $this->db->update($sql);
+        if ($result) {
+            header("Location: listOrder.php"); // Chuyển hướng sau khi cập nhật thành công
+            exit; // Kết thúc kịch bản để ngăn chặn việc hiển thị trang tiếp theo
+        }
+    }
 }

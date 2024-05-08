@@ -2,9 +2,19 @@
 <?php
 // gọi class category
 $order = new Cart();
+
 if (isset($_GET['id']) && (!empty($_GET['id']))) {
     $orderId  = $_GET['id'];
     $orderInfo = $order->showOrderById($orderId);
+
+    if (isset($_POST['btnUpdate']) && ($_POST['btnUpdate'])) {
+        $status = $_POST['status'];
+        $updateOrder = $order->updateOrder( $orderId, $status);
+        if ($updateOrder) {
+            header('Location: listBrands.php');
+            exit;
+        }
+    }
 
     if ($orderInfo) {
 ?>
@@ -45,7 +55,7 @@ if (isset($_GET['id']) && (!empty($_GET['id']))) {
                                     Customer Information
                                 </div>
                                 <div class="card-body">
-                                    <form action="#" method="post">
+                                    <form action="viewOrder.php?id=<?= $orderId ?>" method="post">
                                         <ul class="list-group">
                                             <?php
                                             while ($row = $orderInfo->fetch_assoc()) {
@@ -67,7 +77,7 @@ if (isset($_GET['id']) && (!empty($_GET['id']))) {
                                             }
                                             ?>
                                         </ul>
-                                        <button class="btn btn-primary mt-3" name="btnUpdate">Cập nhật</button>
+                                        <input type="submit" class="btn btn-primary mt-3" name="btnUpdate" value="Update">
                                     </form>
 
                                 </div>
