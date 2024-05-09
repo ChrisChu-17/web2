@@ -284,7 +284,7 @@ $show_product = $product->showProduct();
                 <?php
                 while ($result = $showProductByCats->fetch_assoc()) {
                 ?>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">       
                         <div class="block2-pic hov-img0">
                             <?= $product->imgProcessForUser($result['images'], 200, 200, 'img-fluid') ?>
                             <a href="details.php?proid=<?php echo $result['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">Quick View</a>
@@ -343,17 +343,24 @@ $show_product = $product->showProduct();
                     if ($search_result && $search_result->num_rows > 0) {
                         while ($result = $search_result->fetch_assoc()) {
                             // Hiển thị sản phẩm ở đây
-                            echo "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12 '>";
+                            echo "<div class='col-lg-3 col-md-4 col-sm-6 mb-4'>";
                             // Hiển thị thông tin sản phẩm
-                            echo "<div class='block2-pic hov-img0'>";
-                            echo "<h2 a href='details.php?proid={$result['id']}'>{$product->imgProcessForUser($result['images'], 200, 200, 'img-fluid')}</h2>";
-                            echo "<a href='details.php?proid={$result['id']}' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04'>Quick view</a>";
-                            echo "</div>";
-                            echo "<div class='card-body'>";
-                            echo "<h5 class='card-title'>{$result['name']}</h5>";
-                            echo "<p class='card-text'>Price: {$result['price']} VND</p>";
-                            echo "{$result['category_id']}";
-                            echo "</div>";
+                                echo "<div class='block2-pic hov-img0'>";
+                                    echo $product->imgProcessForUser($result['images'], 200, 200, 'img-fluid');
+                                    echo "<a href='details.php?proid={$result['id']}' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04'>Quick view</a>";
+                                echo "</div>";
+                                echo "<div class='block2-txt flex-w flex-t p-t-14'>";
+                                    echo "<div class='block2-txt-child1 flex-col-l'>";
+                                        echo "<a href='details.php?proid={$result['id']}' class='stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6'>{$result['name']}</a>";
+                                        echo "<span class='stext-105 cl3'>$" . $result['price'] . "</span>";
+                                    echo "</div>";
+                                    echo '<div class="block2-txt-child2 flex-r p-t-3">';
+                                        echo '<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">';
+                                            echo '<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">';
+                                            echo '<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">';
+                                        echo '</a>';
+                                    echo '</div>';
+                                echo "</div>";
                             echo "</div>";
                         }
                     } else {
