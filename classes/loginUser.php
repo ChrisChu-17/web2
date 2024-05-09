@@ -108,22 +108,21 @@ class LoginUser
         $fullname = mysqli_real_escape_string($this->db->link, $data['fullName']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
-       
-            $sql = "UPDATE users SET name = '$fullname', email = '$email', phone = '$phone' WHERE id = '$id'";
-            $result = $this->db->update($sql);
-            if ($result) {
-                $alert = "<span class='success'>đã cập nhật thành công</span>";
-                return $alert;
-            } else {
-                $alert = "<span class='error'>chưa được cập nhật </span>";
-                return $alert;
-            }
-        
+
+        $sql = "UPDATE users SET name = '$fullname', email = '$email', phone = '$phone' WHERE id = '$id'";
+        $result = $this->db->update($sql);
+        if ($result) {
+            $alert = "<span class='success'>đã cập nhật thành công</span>";
+            return $alert;
+        } else {
+            $alert = "<span class='error'>chưa được cập nhật </span>";
+            return $alert;
+        }
     }
 
     public function updateUser($data, $id)
     {
-        
+
         $name = mysqli_real_escape_string($this->db->link, $data['name']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);

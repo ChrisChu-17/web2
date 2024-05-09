@@ -16,6 +16,7 @@ $userInfor = $user->getUserInfor($userId);
 
 // Xử lý khi người dùng gửi biểu mẫu cập nhật thông tin
 if (isset($_POST['submit'])) {
+    // Lấy dữ liệu từ biểu mẫu và gán vào mảng dữ liệu
     $newName = $_POST['newName'];
     $newEmail = $_POST['newEmail'];
     $newPhone = $_POST['newPhone'];
@@ -24,20 +25,19 @@ if (isset($_POST['submit'])) {
     // Kiểm tra xem người dùng đã nhập mật khẩu mới hay chưa
     if (!empty($newPassword)) {
         // Nếu có mật khẩu mới, cập nhật thông tin người dùng kèm theo mật khẩu mới
-        $result = $user->updateUser($userId, array('name' => $newName, 'email' => $newEmail, 'phone' => $newPhone, 'password' => $newPassword));
+        $result = $user->updateUser(array('name' => $newName, 'email' => $newEmail, 'phone' => $newPhone, 'password' => $newPassword), $userId);
     } else {
         // Nếu không có mật khẩu mới, chỉ cập nhật thông tin người dùng
-        $result = $user->updateUser($userId, array('name' => $newName, 'email' => $newEmail, 'phone' => $newPhone));
+        $result = $user->updateUser(array('name' => $newName, 'email' => $newEmail, 'phone' => $newPhone), $userId);
     }
 
-    $result = $user->updateUser($userId, array('name' => $newName, 'email' => $newEmail, 'phone' => $newPhone));
+    // Kiểm tra kết quả cập nhật và hiển thị thông báo tương ứng
     if ($result) {
         echo "<div class='alert alert-success'>$result</div>";
-        header("Location:infoUser.php");
+        header("Location:infoUser.php"); // Chuyển hướng người dùng sau khi cập nhật thành công
     } else {
-        echo "<div class='alert alert-danger'>$result</div>";
+        echo "<div class='alert alert-danger'>Cập nhật thông tin người dùng không thành công</div>";
     }
-
 }
 ?>
 
