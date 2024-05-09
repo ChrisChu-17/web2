@@ -81,7 +81,7 @@ class LoginUser
         $result = $this->db->select($query);
         return $result;
     }
-    public function updateUser($id, $data)
+    public function selectUserById($id, $data)
     {
         $sql = "SELECT * FROM USERS ORDER BY id ";
         $result = $this->db->select($sql);
@@ -102,15 +102,28 @@ class LoginUser
         }
     }
 
-    public function updateUser($data, $id)
+    public function updateUserOnAdmin($data, $id)
     {
         $userId = mysqli_real_escape_string($this->db->link, $id);
         $fullname = mysqli_real_escape_string($this->db->link, $data['fullName']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
+       
+            $sql = "UPDATE users SET name = '$fullname', email = '$email', phone = '$phone' WHERE id = '$id'";
+            $result = $this->db->update($sql);
+            if ($result) {
+                $alert = "<span class='success'>đã cập nhật thành công</span>";
+                return $alert;
+            } else {
+                $alert = "<span class='error'>chưa được cập nhật </span>";
+                return $alert;
+            }
+        
+    }
 
-        $sql = "UPDATE users SET name = '$fullname', email = '$email', phone = '$phone' WHERE id = '$id'";
-        $result = $this->db->update($sql);
+    public function updateUser($data, $id)
+    {
+        
         $name = mysqli_real_escape_string($this->db->link, $data['name']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
@@ -153,6 +166,13 @@ class LoginUser
     public function getUserById($id)
     {
         $sql = "SELECT * FROM users WHERE id = $id";
+        $result = $this->db->select($sql);
+        return $result;
+    }
+
+    public function showListUser()
+    {
+        $sql = "SELECT * FROM USERS ORDER BY id ";
         $result = $this->db->select($sql);
         return $result;
     }

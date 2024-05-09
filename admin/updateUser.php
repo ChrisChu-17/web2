@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) {
     echo $userId;
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-    $updateUser = $user->updateUser($_POST, $userId);
+    $updateUser = $user->updateUserOnAdmin($_POST, $userId);
     if($updateUser) {
         echo "<script> window.location = 'listUser.php' </script>";
     }
