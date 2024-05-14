@@ -1,27 +1,26 @@
-
 <?php include '../classes/loginAdmin.php';  ?>
 <?php
-    $admin = new LoginAdmin();
+$admin = new LoginAdmin();
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-        var_dump($_POST);
-        $login_Admin = $admin->login_admin($_POST,$_FILES); 
-        var_dump($login_Admin);
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+    var_dump($_POST);
+    $login_Admin = $admin->login_admin($_POST, $_FILES);
+    var_dump($login_Admin);
+}
 ?>
 
-<?php 
-    if(isset($login_Admin)){
-        echo $login_Admin;
-    }
+<?php
+if (isset($login_Admin)) {
+    echo $login_Admin;
+}
 
 
 ?>
 
- 
- 
- 
- <!DOCTYPE html>
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -36,9 +35,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -66,12 +63,10 @@
                                     </div>
                                     <form class="user" method="post" action="login.php">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail"  name="email" placeholder="Enter Email Address...">
+                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" name="email" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                             id="exampleInputPassword" name="password" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -83,15 +78,15 @@
 
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block" name="submit">
-                                        Login
+                                            Login
                                         </button>
                                         <?php
-// Bên dưới form đăng nhập
-if(isset($_POST['submit'])) {
-    $login_Admin = new LoginAdmin();
-    $login_Admin->login_admin($_POST);
-}
-?>
+                                        // Bên dưới form đăng nhập
+                                        if (isset($_POST['submit'])) {
+                                            $login_Admin = new LoginAdmin();
+                                            $login_Admin->login_admin($_POST);
+                                        }
+                                        ?>
 
 
 
@@ -109,10 +104,10 @@ if(isset($_POST['submit'])) {
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="register.php">Create an Account!</a>
-                            
+
 
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -125,7 +120,7 @@ if(isset($_POST['submit'])) {
 
     </div>
 
-   
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

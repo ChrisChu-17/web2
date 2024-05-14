@@ -248,7 +248,7 @@ class Product
     public function showProductByCategory($category_slug)
     {
         $category_slug = $this->db->link->real_escape_string($category_slug);
-        $query = "SELECT * FROM products WHERE category_id IN (SELECT id FROM categories WHERE slug = '$category_slug')";
+        $query = "SELECT * FROM products WHERE category_id IN (SELECT id FROM categories WHERE slug LIKE '%$category_slug%')";
         $result = $this->db->select($query);
         return $result;
     }
