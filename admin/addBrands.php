@@ -1,7 +1,21 @@
 <?php
 require('include/header.php');
 ?>
+<?php include '../classes/brand.php';  ?>
+<?php
 
+$brand = new Brand();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // LẤY DỮ LIỆU TỪ PHƯƠNG THỨC Ở FORM POST
+    $brandName = $_POST['name'];
+    $insertBrand = $brand->insertBrand($brandName); // hàm check catName khi submit lên
+    if(isset($insertBrand)) {
+       header("Location: listBrands.php"); 
+       exit;
+    }
+    
+}
+?>
 <div>
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -17,7 +31,12 @@ require('include/header.php');
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Add Brand!</h1>
                                 </div>
-                                <form class="user" action="addBrandsProgress.php" method="post">
+                                <?php
+                                if (isset($insertBrand)) {
+                                    echo $insertBrand;
+                                }
+                                ?>
+                                <form class="user" action="addBrands.php" method="post">
                                     <div class="form-group">
                                         <label class="form-label">Brand name:</label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter Brand Name...">

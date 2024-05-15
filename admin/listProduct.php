@@ -1,13 +1,21 @@
 <?php
 require('include/header.php');
 
-function imgProcess($arrstr, $height) {
-  //arrstr la mang chua cac hinh anh vd anh1, anh2, anh3...
-  $arr = explode(";", $arrstr);
-  return "<img src='$arr[0]' height = '$height'/>";
+?>
+<?php include '../classes/category.php';  ?>
+<?php include '../classes/product.php';  ?>
+<?php require_once '../helpers/format.php'; ?>
+<?php
+$product = new product();
+$fm = new Format();
+if (!isset($_GET['delete']) || $_GET['delete'] == NULL) {
+  // echo "<script> window.location = 'catlist.php' </script>";
+
+} else {
+  $id = $_GET['delete']; // Lấy catid trên host
+  $deleteProduct = $product->deleteProduct($id); // hàm check delete Name khi submit lên
 }
 ?>
-
 <div>
   <!-- <h3>Danh sách thương hiệu</h3> -->
 
@@ -41,29 +49,23 @@ function imgProcess($arrstr, $height) {
           </tfoot>
           <tbody>
             <?php
-            //ket noi database fetch data từ database ra bảng html
-            require('db/conn.php');
-            $sql = "SELECT 
-            products.name as pname, 
-            products.images as pimg,
-            brands.name as bname,
-            categories.name as cname,
-            products.status as pstatus FROM `products` 
-            JOIN categories ON products.category_id = categories.id 
-            JOIN brands ON products.brand_id = brands.id 
-            ORDER BY products.name;";
-            $result = mysqli_query($conn, $sql);
-            while ($row = mysqli_fetch_assoc($result)) {
+            $showProduct = $product->showProduct();
+            if ($showProduct) {
+              while ($result = $showProduct->fetch_assoc()) {
             ?>
-              <tr>
-                <td><?= $row['pname']; ?></td>
-                <td><?= imgProcess($row['pimg'], "100px"); ?></td>
-                <td><?= $row['bname']; ?></td>
-                <td><?= $row['cname']; ?></td>
-                <td><?= $row['pstatus']; ?></td>
-                <td><a href="deleteProduct.php?" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa brand này?');">Delete</a>    <a href="" class="btn btn-warning">Edit</a></td>
-              </tr>
+                <tr>
+                  <td><?php echo $result['pname']; ?></td>
+                  <td><?php echo $product->imgProcess($result['pimg'], 100)?></td>
+                  <td><?php echo $result['bname']; ?></td>
+                  <td><?php echo $result['cname']; ?></td>
+                  <td><?php echo $result['pstatus']; ?></td>
+                  <td><a href="?delete=<?php echo $result['id']; ?>" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa <?php echo $result['pname']; ?> ?');">Delete</a>
+                    <a href="updateProduct.php?proId=<?php echo $result['id']; ?>" class="btn btn-warning">Edit</a>
+                  </td>
+
+                </tr>
             <?php
+              }
             }
             ?>
           </tbody>

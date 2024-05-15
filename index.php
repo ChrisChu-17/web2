@@ -17,3 +17,4 @@ require('inc/footer.php');
 
 <?php
 require('inc/script.php');
+?>

@@ -92,12 +92,11 @@ class Brand
         }
     }
 
-    public function getBrandById($id) {
+    public function getBrandById($id)
+    {
         $sql = "SELECT * FROM brands WHERE id = '$id'";
         $result = $this->db->select($sql);
         return $result;
     }
-
-   
 }
 ?>

@@ -31,6 +31,7 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
+    
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -54,7 +55,7 @@
               data-dismiss="modal"
             >
               Cancel
-            </button>
+            </button> 
             <a class="btn btn-primary" href="login.html">Logout</a>
           </div>
         </div>
