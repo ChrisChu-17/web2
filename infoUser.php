@@ -62,7 +62,7 @@ $userInfo = $user->getUserInfor($userId);
                                 <div class="form-group">
                                     <label for="phone">Phone<span>*</span></label>
                                     <input type="text" class="form-control" id="phone" name="phone" value="<?= $result['phone'] ?>" readonly>
-                                    <a href="updateinfo.php?userId=<?php echo $result['id']; ?>" class="btn btn-warning">Edit</a>
+                               
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email<span>*</span></label>
@@ -79,7 +79,7 @@ $userInfo = $user->getUserInfor($userId);
                                         </div>
                                     </div>
                                 </div>
-                                <a href="updateinfo.php?userId=<?php echo $result['id']; ?>" class="btn btn-warning">Charge</a>
+                                <a href="updateinfo.php?userId=<?php echo $result['id']; ?>" class="btn btn-warning">Charnge</a>
                         <?php
                             }
                         }

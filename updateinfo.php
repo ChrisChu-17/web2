@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                     <label for="newPhone">New Phone:</label>
                     <input type="text" class="form-control" id="newPhone" name="newPhone" value="">
-                    <button type="submit" class="btn btn-primary" name="updatePhone">Update Phone</button>
+                
 
                 </div>
                 <div class="form-group">
